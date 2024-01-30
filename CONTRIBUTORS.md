@@ -6,6 +6,8 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 ## Cohort Participants
 
+- [Khadijah Nabil](https://github.com/khadijahnabil) 🍣
+
 ## Mentors
 
 - [Reda Baha](https://github.com/redapy) 😅
