@@ -8,6 +8,8 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 - [Khadijah Nabil](https://github.com/khadijahnabil) 🍣
 
+- [Ijeoma Igboagu] (https://github.com/ijayhub) 🍵
+
 ## Mentors
 
 - [Reda Baha](https://github.com/redapy) 😅
