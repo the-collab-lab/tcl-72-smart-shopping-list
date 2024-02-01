@@ -8,7 +8,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 - [Khadijah Nabil](https://github.com/khadijahnabil) 🍣
 
-- [Ijeoma Igboagu] (https://github.com/ijayhub) 🍵
+- [Ijeoma Igboagu](https://github.com/ijayhub) 🍵
 
 - [Okeke Nmesomachukwu Henry](https://github.com/iamhenryokeke) 😎
 
@@ -17,3 +17,5 @@ Add yourself as a contributor to this project as a Markdown link that links your
 - [Reda Baha](https://github.com/redapy) 😅
 
 ## Code of Conduct Contacts
+
+- [Ayu Adiati](https://github.com/adiati98) 🤩
