@@ -10,6 +10,8 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 - [Ijeoma Igboagu] (https://github.com/ijayhub) 🍵
 
+- [Okeke Nmesomachukwu Henry](https://github.com/iamhenryokeke) 😎
+
 ## Mentors
 
 - [Reda Baha](https://github.com/redapy) 😅
