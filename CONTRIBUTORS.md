@@ -15,6 +15,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Mentors
 
 - [Reda Baha](https://github.com/redapy) 😅
+- [David Lluna](https://github.com/llunaplanet) 🌓
 
 ## Code of Conduct Contacts
 
