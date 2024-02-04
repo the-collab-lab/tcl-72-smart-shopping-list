@@ -11,6 +11,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 - [Ijeoma Igboagu](https://github.com/ijayhub) 🍵
 
 - [Okeke Nmesomachukwu Henry](https://github.com/iamhenryokeke) 😎
+- [Jamila Mahamed](https://github.com/jmahamed) ✨
 
 ## Mentors
 
