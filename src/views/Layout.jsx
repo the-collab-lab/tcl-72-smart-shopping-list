@@ -14,7 +14,7 @@ import { SignInButton, SignOutButton, useAuth } from '../api/useAuth.jsx';
 
 export function Layout() {
 	const { user } = useAuth();
-	console.log(user);
+
 	return (
 		<>
 			<div className="Layout">
