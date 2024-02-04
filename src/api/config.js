@@ -4,13 +4,12 @@ import { getAuth } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-	apiKey: 'FILL_ME_IN',
-	authDomain: 'FILL_ME_IN',
-	databaseURL: 'FILL_ME_IN',
-	projectId: 'FILL_ME_IN',
-	storageBucket: 'FILL_ME_IN',
-	messagingSenderId: 'FILL_ME_IN',
-	appId: 'FILL_ME_IN',
+	apiKey: 'AIzaSyCCzGGWfJs94OLYEIkX1rYGCxI8VS99Jog',
+	authDomain: 'tcl-72-smart-shopping-list.firebaseapp.com',
+	projectId: 'tcl-72-smart-shopping-list',
+	storageBucket: 'tcl-72-smart-shopping-list.appspot.com',
+	messagingSenderId: '292388089759',
+	appId: '1:292388089759:web:59fa749489020ee7ed17aa',
 };
 
 // Initialize Firebase
