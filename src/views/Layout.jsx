@@ -37,9 +37,6 @@ export function Layout() {
 				</main>
 				<nav className="Nav">
 					<div className="Nav-container">
-						{/* <a href="#" className="Nav-link">
-							Home
-						</a> */}
 						<NavLink to="/" className="Nav-link">
 							Home
 						</NavLink>
