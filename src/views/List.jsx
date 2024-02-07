@@ -12,6 +12,9 @@ export function List({ data }) {
 				 * using the `ListItem` component that's imported at the top
 				 * of this file.
 				 */}
+				{data.map((item) => (
+					<ListItem key={item.id} name={item.name} />
+				))}
 			</ul>
 		</>
 	);
