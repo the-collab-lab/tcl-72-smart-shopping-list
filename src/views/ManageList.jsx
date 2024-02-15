@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export function ManageList() {
 	const [itemName, setItemName] = useState('');
-	const [time, setTime] = useState(7);
+	const [daysUntilNextPurchase, setDaysUntilNextPurchase] = useState(7);
 
 	const toastCSS = {
 		autoClose: 5000,
@@ -22,7 +22,7 @@ export function ManageList() {
 		try {
 			const res = await addItem(
 				localStorage.getItem('tcl-shopping-list-path'),
-				{ itemName, time },
+				{ itemName, daysUntilNextPurchase },
 			);
 			toast.success('Item saved to database');
 		} catch (error) {
@@ -49,9 +49,9 @@ export function ManageList() {
 					/>
 				</div>
 				<select
-					id="time"
-					value={time}
-					onChange={(e) => setTime(e.target.value)}
+					id="daysUntilNextPurchase"
+					value={daysUntilNextPurchase}
+					onChange={(e) => setDaysUntilNextPurchase(e.target.value)}
 				>
 					<option value={7}>Soon</option>
 					<option value={14}>Kind of soon</option>
