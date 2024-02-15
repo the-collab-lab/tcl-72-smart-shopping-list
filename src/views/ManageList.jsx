@@ -1,9 +1,21 @@
 import { useState } from 'react';
 import { addItem } from '../api/firebase';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function ManageList() {
 	const [itemName, setItemName] = useState('');
 	const [time, setTime] = useState(7);
+
+	const toastCSS = {
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+		theme: 'light',
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -12,10 +24,10 @@ export function ManageList() {
 				localStorage.getItem('tcl-shopping-list-path'),
 				{ itemName, time },
 			);
-			alert('Item saved to database');
+			toast.success('Item saved to database');
 		} catch (error) {
 			console.log(error);
-			alert('Item not saved');
+			toast.error('Item not saved');
 		}
 	};
 
@@ -47,6 +59,7 @@ export function ManageList() {
 				</select>
 				<button type="submit">Submit Item</button>
 			</form>
+			<ToastContainer style={{ toastCSS }} />
 		</>
 	);
 }
