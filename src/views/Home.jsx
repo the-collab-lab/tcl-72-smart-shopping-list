@@ -18,7 +18,9 @@ export function Home({ data, setListPath }) {
 
 			<form id="list-form" action="#">
 				<label htmlFor="create-list">Create a new list</label>
-				<input type="text" id="create-list" />
+				<br />
+				<input type="email" id="create-list" required />
+				<br />
 				<input type="submit" />
 			</form>
 
