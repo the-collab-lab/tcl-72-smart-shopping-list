@@ -118,17 +118,17 @@ export async function addUserToDatabase(user) {
 export async function createList(userId, userEmail, listName) {
 	const listDocRef = doc(db, userId, listName);
 
-	const shoppingList = await setDoc(listDocRef, {
+	setDoc(listDocRef, {
 		owner: userId,
 	});
-	console.log('shoppingList', shoppingList);
+	// console.log('shoppingList',shoppingList);
 
 	const userDocumentRef = doc(db, 'users', userEmail);
 
-	const updateShop = await updateDoc(userDocumentRef, {
+	updateDoc(userDocumentRef, {
 		sharedLists: arrayUnion(listDocRef),
 	});
-	console.log('update', updateShop);
+	// console.log('updateShop',updateShop);
 }
 
 /**

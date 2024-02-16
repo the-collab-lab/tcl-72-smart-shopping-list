@@ -12,7 +12,7 @@ export function Home({ data, setListPath }) {
 		event.preventDefault();
 		try {
 			const newList = await createList(user.uid, user.email, name);
-			setName(newList);
+			setListPath(newList);
 		} catch (err) {
 			console.error(err);
 		}
