@@ -2,13 +2,25 @@ import { SingleList } from '../components/SingleList';
 import './Home.css';
 import { createList } from '../api/firebase';
 import { useState } from 'react';
+import { useAuth } from '../api/useAuth';
 
 export function Home({ data, setListPath }) {
-	// const [createList,setCreateList] = useState(false)
+	const [name, setName] = useState('');
+	const { user } = useAuth();
 
-	// function onSubmit() {
-	// 	useState = true;
-	// }
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		try {
+			const newList = await createList(user.uid, user.email, name);
+			setName(newList);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleChange = (e) => {
+		setName(e.target.value);
+	};
 
 	return (
 		<div className="Home">
@@ -16,12 +28,18 @@ export function Home({ data, setListPath }) {
 				Hello from the home (<code>/</code>) page!
 			</p>
 
-			<form id="list-form" action="#">
-				<label htmlFor="create-list">Create a new list</label>
+			<form id="list" onSubmit={handleSubmit}>
+				<label htmlFor="listName">Name of shopping list: </label>
 				<br />
-				<input type="email" id="create-list" required />
+				<input
+					type="text"
+					id="listName"
+					value={name}
+					onChange={handleChange}
+					required
+				/>
 				<br />
-				<input type="submit" />
+				<button type="submit">Create list</button>
 			</form>
 
 			<ul>
