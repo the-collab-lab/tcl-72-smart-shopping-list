@@ -2,17 +2,21 @@ import { SingleList } from '../components/SingleList';
 import './Home.css';
 import { createList } from '../api/firebase';
 import { useState } from 'react';
-import { useAuth } from '../api/useAuth';
+import { useNavigate } from 'react-router-dom';
 
-export function Home({ data, setListPath }) {
+export function Home({ data, setListPath, userId, userEmail }) {
 	const [name, setName] = useState('');
-	const { user } = useAuth();
+	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			const newList = await createList(user.uid, user.email, name);
+			const newList = await createList(userId, userEmail, name);
 			setListPath(newList);
+			setName('');
+			alert('The item has been added.');
+			navigate('/list');
+			localStorage.setItem('tcl-shopping-list-path', newList);
 		} catch (err) {
 			console.error(err);
 		}
@@ -43,11 +47,6 @@ export function Home({ data, setListPath }) {
 			</form>
 
 			<ul>
-				{/**
-				 * TODO: write some JavaScript that renders the `lists` array
-				 * so we can see which lists the user has access to.
-				 */}
-
 				{data?.map((item) => (
 					<SingleList
 						key={item.path}
