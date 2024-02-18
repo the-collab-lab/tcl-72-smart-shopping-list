@@ -22,7 +22,8 @@ export function Home({ data, setListPath, userId, userEmail }) {
 			navigate('/list'); // navigate to list page
 		} catch (err) {
 			console.error(err);
-			alert('item not created');
+
+			alert('item not created'); //alert message if there is an error with creating the item
 		}
 	};
 
