@@ -9,13 +9,14 @@ export function Home({ data, setListPath, userId, userEmail }) {
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
-		event.preventDefault();
+		event.preventDefault(); // Prevent the default form submission behavior.
+
 		try {
 			const newList = await createList(userId, userEmail, name);
 			setListPath(newList); // creates a new list and automatically creates the userId
 			// that tracks the purchased item and also saves it to local storage
 
-			setName(''); //refreshes the form after submission takes it back to the default state
+			setName(''); //refreshes the form after submission place takes it back to the default state
 
 			alert('The item has been added.'); //alert message
 
