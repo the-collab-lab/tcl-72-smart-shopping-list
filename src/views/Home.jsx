@@ -12,13 +12,17 @@ export function Home({ data, setListPath, userId, userEmail }) {
 		event.preventDefault();
 		try {
 			const newList = await createList(userId, userEmail, name);
-			setListPath(newList);
-			setName('');
-			alert('The item has been added.');
-			navigate('/list');
-			localStorage.setItem('tcl-shopping-list-path', newList);
+			setListPath(newList); // creates a new list and automatically creates the userId
+			// that tracks the purchased item and also saves it to local storage
+
+			setName(''); //refreshes the form after submission takes it back to the default state
+
+			alert('The item has been added.'); //alert message
+
+			navigate('/list'); // navigate to list page
 		} catch (err) {
 			console.error(err);
+			alert('item not created');
 		}
 	};
 
