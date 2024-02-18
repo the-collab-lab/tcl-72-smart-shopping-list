@@ -20,7 +20,7 @@ export function ManageList({ listPath }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await addItem(localStorage.getItem(listPath), {
+			await addItem(listPath, {
 				itemName,
 				daysUntilNextPurchase,
 			});
