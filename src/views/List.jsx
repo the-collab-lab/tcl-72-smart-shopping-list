@@ -1,6 +1,17 @@
+import { useState } from 'react';
 import { ListItem } from '../components';
 
 export function List({ data }) {
+	const [searchInput, setSearchInput] = useState('');
+	//  write some JavaScript that filters the `data` array based on the `searchInput`
+	const filterItems = (e) => {
+		setSearchInput(e.target.value);
+		data.map((item) => {
+			// return
+			console.log(item);
+		});
+	};
+
 	return (
 		<>
 			<p>
@@ -8,7 +19,11 @@ export function List({ data }) {
 			</p>
 			<form>
 				<label htmlFor="search">Search: </label>
-				<input type="search" />
+				<input
+					type="search"
+					value={searchInput}
+					onChange={(e) => filterItems(e)}
+				/>
 				<button type="button">X</button>
 			</form>
 			<ul>
