@@ -1,16 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ListItem } from '../components';
 
 export function List({ data }) {
 	const [searchInput, setSearchInput] = useState('');
-	//  write some JavaScript that filters the `data` array based on the `searchInput`
-	const filterItems = (e) => {
-		setSearchInput(e.target.value);
-		data.map((item) => {
-			// return
-			console.log(item);
-		});
+	const [filteredItems, setFilteredItems] = useState([]);
+
+	const filterItems = (searchInput) => {
+		const searchResult = data.filter((item) => item.name.includes(searchInput));
+		return setFilteredItems(searchResult);
 	};
+
+	useEffect(() => {
+		setFilteredItems(data);
+	}, [data]);
+
+	useEffect(() => {
+		filterItems(searchInput);
+	}, [searchInput]);
 
 	return (
 		<>
@@ -22,7 +28,7 @@ export function List({ data }) {
 				<input
 					type="search"
 					value={searchInput}
-					onChange={(e) => filterItems(e)}
+					onChange={(e) => setSearchInput(e.target.value)}
 				/>
 				<button type="button">X</button>
 			</form>
@@ -32,7 +38,7 @@ export function List({ data }) {
 				 * using the `ListItem` component that's imported at the top
 				 * of this file.
 				 */}
-				{data.map((item) => (
+				{filteredItems.map((item) => (
 					<ListItem key={item.id} name={item.name} />
 				))}
 			</ul>
