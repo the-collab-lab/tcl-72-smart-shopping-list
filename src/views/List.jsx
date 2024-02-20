@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ListItem } from '../components';
 
 export function List({ data }) {
 	const [searchInput, setSearchInput] = useState('');
-	//  write some JavaScript that filters the `data` array based on the `searchInput`
+
+	// Function to filter items based on search input
 	const filterItems = (e) => {
 		setSearchInput(e.target.value);
-		data.map((item) => {
-			// return
-			console.log(item);
-		});
+	};
+
+	// Filtered list based on search input (not working yet- still in progress)
+	const filteredData = data.filter((item) =>
+		item.name.toLowerCase().includes(searchInput.toLowerCase()),
+	);
+	console.log(filteredData);
+
+	// Function to clear search input
+	const clearSearchInput = () => {
+		setSearchInput('');
 	};
 
 	return (
@@ -21,10 +29,13 @@ export function List({ data }) {
 				<label htmlFor="search">Search: </label>
 				<input
 					type="search"
+					id="search"
 					value={searchInput}
 					onChange={(e) => filterItems(e)}
 				/>
-				<button type="button">X</button>
+				<button type="button" onClick={clearSearchInput}>
+					X
+				</button>
 			</form>
 			<ul>
 				{/**
@@ -32,7 +43,10 @@ export function List({ data }) {
 				 * using the `ListItem` component that's imported at the top
 				 * of this file.
 				 */}
-				{data.map((item) => (
+				{/**
+				 * Render the filtered list using the ListItem component.
+				 */}
+				{filteredData.map((item) => (
 					<ListItem key={item.id} name={item.name} />
 				))}
 			</ul>
