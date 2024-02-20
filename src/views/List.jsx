@@ -6,6 +6,11 @@ export function List({ data }) {
 			<p>
 				Hello from the <code>/list</code> page!
 			</p>
+			<form>
+				<label htmlFor="search">Search: </label>
+				<input type="search" />
+				<button type="button">X</button>
+			</form>
 			<ul>
 				{/**
 				 * TODO: write some JavaScript that renders the `data` array
