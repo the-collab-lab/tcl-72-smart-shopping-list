@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ListItem } from '../components';
 
 export function List({ data }) {
 	const [searchInput, setSearchInput] = useState('');
+	const [filteredItems, setFilteredItems] = useState([]);
 
 	// Function to filter items based on search input
-	const filterItems = (e) => {
-		setSearchInput(e.target.value);
+	const filterItems = (searchInput) => {
+		const searchResult = data.filter((item) => item.name.includes(searchInput));
+		return setFilteredItems(searchResult);
 	};
 
-	// Filtered list based on search input (not working yet- still in progress)
-	const filteredData = data.filter((item) =>
-		item.name.toLowerCase().includes(searchInput.toLowerCase()),
-	);
-	console.log(filteredData);
+	useEffect(() => {
+		setFilteredItems(data);
+	}, [data]);
 
-	// Function to clear search input
+	useEffect(() => {
+		filterItems(searchInput);
+	}, [searchInput]);
+
+	// Function to clear the search input
 	const clearSearchInput = () => {
 		setSearchInput('');
 	};
@@ -31,7 +35,7 @@ export function List({ data }) {
 					type="search"
 					id="search"
 					value={searchInput}
-					onChange={(e) => filterItems(e)}
+					onChange={(e) => setSearchInput(e.target.value)}
 				/>
 				<button type="button" onClick={clearSearchInput}>
 					X
@@ -43,10 +47,8 @@ export function List({ data }) {
 				 * using the `ListItem` component that's imported at the top
 				 * of this file.
 				 */}
-				{/**
-				 * Render the filtered list using the ListItem component.
-				 */}
-				{filteredData.map((item) => (
+
+				{filteredItems.map((item) => (
 					<ListItem key={item.id} name={item.name} />
 				))}
 			</ul>
