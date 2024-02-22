@@ -43,7 +43,7 @@ export function ManageList({ listPath, userId }) {
 			setEmail('');
 		} catch (error) {
 			console.log(error);
-			toast.error('List not shared to email');
+			toast.error('Email not recognised');
 			setEmail('');
 		}
 	};
