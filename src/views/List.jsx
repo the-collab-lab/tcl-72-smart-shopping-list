@@ -7,14 +7,18 @@ export function List({ data }) {
 
 	// Function to filter items based on search input
 	const filterItems = (searchInput) => {
-		const searchResult = data.filter((item) => item.name.includes(searchInput));
-		return setFilteredItems(searchResult);
+		const searchResult = data.filter((item) =>
+			item.name.toLowerCase().includes(searchInput.toLowerCase()),
+		);
+		setFilteredItems(searchResult);
 	};
 
 	useEffect(() => {
+		// Initialize filteredItems with the entire data array when the component mounts
 		setFilteredItems(data);
 	}, [data]);
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		filterItems(searchInput);
 	}, [searchInput]);
@@ -22,6 +26,8 @@ export function List({ data }) {
 	// Function to clear the search input
 	const clearSearchInput = () => {
 		setSearchInput('');
+		// Reset filteredItems to the entire data array when search input is cleared
+		setFilteredItems(data);
 	};
 
 	return (
@@ -42,12 +48,6 @@ export function List({ data }) {
 				</button>
 			</form>
 			<ul>
-				{/**
-				 * TODO: write some JavaScript that renders the `data` array
-				 * using the `ListItem` component that's imported at the top
-				 * of this file.
-				 */}
-
 				{filteredItems.map((item) => (
 					<ListItem key={item.id} name={item.name} />
 				))}
