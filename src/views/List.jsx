@@ -28,6 +28,11 @@ export function List({ data }) {
 		setFilteredItems(data);
 	};
 
+	// creating the welcome prompt
+	if (data.length < 1) {
+		return <button type="button">add item</button>;
+	}
+
 	return (
 		<>
 			<p>
