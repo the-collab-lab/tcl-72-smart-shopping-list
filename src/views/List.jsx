@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { ListItem } from '../components';
+import { useNavigate } from 'react-router-dom';
 
 export function List({ data }) {
 	const [searchInput, setSearchInput] = useState('');
 	const [filteredItems, setFilteredItems] = useState([]);
+	const navigate = useNavigate();
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		// Initialize filteredItems with the entire data array when the component mounts
 		setFilteredItems(data);
 	}, [data]);
@@ -28,33 +30,48 @@ export function List({ data }) {
 		setFilteredItems(data);
 	};
 
-	// creating the welcome prompt
-	if (data.length < 1) {
-		return <button type="button">add item</button>;
-	}
+	// JSX for the welcome prompt when there are no items
+	const renderWelcomePrompt = () => (
+		<div className="welcome-prompt">
+			<h2>Welcome to Your List!</h2>
+			<p>
+				Ready to start your list adventure? Click on the button below to add
+				your very first item.
+			</p>
+			<button onClick={() => navigate('/manage-list')} type="button">
+				Add Item
+			</button>
+		</div>
+	);
 
 	return (
 		<>
-			<p>
-				Hello from the <code>/list</code> page!
-			</p>
-			<form>
-				<label htmlFor="search">Search: </label>
-				<input
-					type="search"
-					id="search"
-					value={searchInput}
-					onChange={(e) => setSearchInput(e.target.value)}
-				/>
-				<button type="button" onClick={clearSearchInput}>
-					X
-				</button>
-			</form>
-			<ul>
-				{filteredItems.map((item) => (
-					<ListItem key={item.id} name={item.name} />
-				))}
-			</ul>
+			{data.length < 1 ? (
+				renderWelcomePrompt()
+			) : (
+				<>
+					<p>
+						Hello from the <code>/list</code> page!
+					</p>
+					<form>
+						<label htmlFor="search">Search: </label>
+						<input
+							type="search"
+							id="search"
+							value={searchInput}
+							onChange={(e) => setSearchInput(e.target.value)}
+						/>
+						<button type="button" onClick={clearSearchInput}>
+							X
+						</button>
+					</form>
+					<ul>
+						{filteredItems.map((item) => (
+							<ListItem key={item.id} name={item.name} />
+						))}
+					</ul>
+				</>
+			)}
 		</>
 	);
 }
