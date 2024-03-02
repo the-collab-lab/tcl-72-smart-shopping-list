@@ -30,7 +30,7 @@ export function ListItem({ id, name, listPath }) {
 				},
 				24 * 60 * 60 * 1000,
 			);
-			// 60 * 1000 1 minute test
+			// 60 * 1000  (1 minute test)
 			return () => clearTimeout(timer);
 		}
 	}, [itemChecked, id]);
