@@ -35,8 +35,8 @@ export function List({ data }) {
 		<div className="welcome-prompt">
 			<h2>Welcome to Your List!</h2>
 			<p>
-				Ready to start your list adventure? Click on the button below to add
-				your very first item.
+				Ready to start your list? Click on the button below to add your very
+				first item.
 			</p>
 			<button onClick={() => navigate('/manage-list')} type="button">
 				Add Item
