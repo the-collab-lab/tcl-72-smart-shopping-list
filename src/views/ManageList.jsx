@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { addItem } from '../api/firebase';
+import { addItem, shareList } from '../api/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export function ManageList({ listPath }) {
+export function ManageList({ listPath, userId }) {
 	const [itemName, setItemName] = useState('');
 	const [daysUntilNextPurchase, setDaysUntilNextPurchase] = useState(7);
+	const [email, setEmail] = useState('');
 
 	const toastCSS = {
 		autoClose: 5000,
@@ -17,7 +18,7 @@ export function ManageList({ listPath }) {
 		theme: 'light',
 	};
 
-	const handleSubmit = async (e) => {
+	const handleItemSubmit = async (e) => {
 		e.preventDefault();
 		try {
 			await addItem(listPath, {
@@ -34,12 +35,25 @@ export function ManageList({ listPath }) {
 		}
 	};
 
+	const handleEmailSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			await shareList(listPath, userId, email);
+			toast.success('List shared to email');
+			setEmail('');
+		} catch (error) {
+			console.log(error);
+			toast.error('Email not recognised');
+			setEmail('');
+		}
+	};
+
 	return (
 		<>
 			<p>
 				Hello from the <code>/manage-list</code> page!
 			</p>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleItemSubmit}>
 				<div>
 					<label htmlFor="itemName">Name of item: </label>
 					<input
@@ -64,6 +78,21 @@ export function ManageList({ listPath }) {
 						<option value={14}>Kind of soon</option>
 						<option value={30}>Not soon</option>
 					</select>
+				</div>
+				<button type="submit">Submit Item</button>
+			</form>
+			<form onSubmit={handleEmailSubmit}>
+				<h1>Share List</h1>
+				<div>
+					<label htmlFor="email">Email: </label>
+					<input
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						type="email"
+						name="email"
+						id="email"
+						required
+					/>
 				</div>
 				<button type="submit">Submit Item</button>
 			</form>
