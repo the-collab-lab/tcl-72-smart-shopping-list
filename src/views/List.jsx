@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { ListItem } from '../components';
 
-export function List({ data }) {
+export function List({ data, listPath }) {
 	const [searchInput, setSearchInput] = useState('');
 	const [filteredItems, setFilteredItems] = useState([]);
-
-	// Function to filter items based on search input
-	const filterItems = (searchInput) => {
-		const searchResult = data.filter((item) =>
-			item.name.toLowerCase().includes(searchInput.toLowerCase()),
-		);
-		setFilteredItems(searchResult);
-	};
 
 	useEffect(() => {
 		// Initialize filteredItems with the entire data array when the component mounts
 		setFilteredItems(data);
 	}, [data]);
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// Function to filter items based on search input
 	useEffect(() => {
+		const filterItems = (searchInput) => {
+			const searchResult = data.filter((item) =>
+				item.name.toLowerCase().includes(searchInput.toLowerCase()),
+			);
+			return setFilteredItems(searchResult);
+		};
 		filterItems(searchInput);
-	}, [searchInput]);
+	}, [searchInput, data]);
 
 	// Function to clear the search input
 	const clearSearchInput = () => {
@@ -49,7 +47,12 @@ export function List({ data }) {
 			</form>
 			<ul>
 				{filteredItems.map((item) => (
-					<ListItem key={item.id} name={item.name} />
+					<ListItem
+						key={item.id}
+						id={item.id}
+						name={item.name}
+						listPath={listPath}
+					/>
 				))}
 			</ul>
 		</>
