@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ListItem } from '../components';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ export function List({ data }) {
 	const [filteredItems, setFilteredItems] = useState([]);
 	const navigate = useNavigate();
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		// Initialize filteredItems with the entire data array when the component mounts
 		setFilteredItems(data);
 	}, [data]);
