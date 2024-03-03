@@ -27,7 +27,7 @@ export function List({ data, listPath }) {
 		// Reset filteredItems to the entire data array when search input is cleared
 		setFilteredItems(data);
 	};
-
+	console.log(data);
 	return (
 		<>
 			<p>
@@ -52,6 +52,7 @@ export function List({ data, listPath }) {
 						id={item.id}
 						name={item.name}
 						listPath={listPath}
+						dateLastPurchased={item.dateLastPurchased}
 					/>
 				))}
 			</ul>

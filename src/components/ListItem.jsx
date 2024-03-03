@@ -2,16 +2,17 @@ import './ListItem.css';
 import { updateItem } from '../api/firebase';
 import { useState, useEffect } from 'react';
 
-export function ListItem({ id, name, listPath }) {
+export function ListItem({ id, name, listPath, dateLastPurchased }) {
 	const [itemChecked, setItemChecked] = useState(false);
 
+	console.log(dateLastPurchased);
 	useEffect(() => {
-		const lastCheckedTime = localStorage.getItem(`checked_${id}`);
-		if (lastCheckedTime) {
+		if (dateLastPurchased) {
 			// const oneMinute = 60 * 1000; 1 minute
 			const twentyFourHours = 24 * 60 * 60 * 1000;
 			const currentTime = new Date().getTime();
-			if (currentTime - parseInt(lastCheckedTime) < twentyFourHours) {
+			console.log(dateLastPurchased.toMillis());
+			if (currentTime - dateLastPurchased.toMillis() < twentyFourHours) {
 				setItemChecked(true);
 			}
 		}
@@ -21,28 +22,27 @@ export function ListItem({ id, name, listPath }) {
 	// 	setItemChecked(true);
 	// }
 
-	useEffect(() => {
-		if (itemChecked) {
-			const timer = setTimeout(
-				() => {
-					setItemChecked(false);
-					localStorage.removeItem(`checked_${id}`);
-				},
-				24 * 60 * 60 * 1000,
-			);
-			// 60 * 1000  (1 minute test)
-			return () => clearTimeout(timer);
-		}
-	}, [itemChecked, id]);
+	// useEffect(() => {
+	// 	if (itemChecked) {
+	// 		const timer = setTimeout(
+	// 			() => {
+	// 				setItemChecked(false);
+	// 			},
+	// 			24 * 60 * 60 * 1000,
+	// 		);
+	// 		// 60 * 1000  (1 minute test)
+	// 		return () => clearTimeout(timer);
+	// 	}
+	// }, [itemChecked, id]);
 
 	const setItemPurchased = () => {
-		setItemChecked(!itemChecked);
+		setItemChecked((prev) => !prev);
 		updateItem(listPath, id);
-		if (!itemChecked) {
-			localStorage.setItem(`checked_${id}`, new Date().getTime().toString());
-		} else {
-			localStorage.removeItem(`checked_${id}`);
-		}
+		// if (!itemChecked) {
+		// 	localStorage.setItem(`checked_${id}`, new Date().getTime().toString());
+		// } else {
+		// 	localStorage.removeItem(`checked_${id}`);
+		// }
 	};
 
 	return (
