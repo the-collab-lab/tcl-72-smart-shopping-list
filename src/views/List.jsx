@@ -32,6 +32,7 @@ export function List({ data }) {
 
 	return (
 		<>
+			{/* Display welcome message and add item button */}
 			{data.length < 1 ? (
 				<div className="welcome-prompt">
 					<h2>Welcome to Your List!</h2>
