@@ -186,6 +186,7 @@ export async function updateItem(listPath, itemId) {
 	 * to update an existing item. You'll need to figure out what arguments
 	 * this function must accept!
 	 */
+
 	const docRef = doc(db, listPath, 'items', itemId);
 	await updateDoc(docRef, {
 		dateLastPurchased: new Date(),
