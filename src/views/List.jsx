@@ -30,24 +30,19 @@ export function List({ data }) {
 		setFilteredItems(data);
 	};
 
-	// JSX for the welcome prompt when there are no items
-	const renderWelcomePrompt = () => (
-		<div className="welcome-prompt">
-			<h2>Welcome to Your List!</h2>
-			<p>
-				Ready to start your list? Click on the button below to add your very
-				first item.
-			</p>
-			<button onClick={() => navigate('/manage-list')} type="button">
-				Add Item
-			</button>
-		</div>
-	);
-
 	return (
 		<>
 			{data.length < 1 ? (
-				renderWelcomePrompt()
+				<div className="welcome-prompt">
+					<h2>Welcome to Your List!</h2>
+					<p>
+						Ready to start your list? Click on the button below to add your very
+						first item.
+					</p>
+					<button onClick={() => navigate('/manage-list')} type="button">
+						Add Item
+					</button>
+				</div>
 			) : (
 				<>
 					<p>
