@@ -8,7 +8,6 @@ export function List({ data, listPath }) {
 
 	const navigate = useNavigate();
 
-
 	useEffect(() => {
 		// Initialize filteredItems with the entire data array when the component mounts
 		setFilteredItems(data);
@@ -31,11 +30,9 @@ export function List({ data, listPath }) {
 		// Reset filteredItems to the entire data array when search input is cleared
 		setFilteredItems(data);
 	};
-	console.log(data);
+
 	return (
 		<>
-
-
 			{data.length < 1 ? (
 				<div className="welcome-prompt">
 					<h2>Welcome to Your List!</h2>
@@ -65,19 +62,18 @@ export function List({ data, listPath }) {
 						</button>
 					</form>
 					<ul>
-					{filteredItems.map((item) => (
-					<ListItem
-						key={item.id}
-						id={item.id}
-						name={item.name}
-						listPath={listPath}
-						dateLastPurchased={item.dateLastPurchased}
-					/>
-				))}
+						{filteredItems.map((item) => (
+							<ListItem
+								key={item.id}
+								id={item.id}
+								name={item.name}
+								listPath={listPath}
+								dateLastPurchased={item.dateLastPurchased}
+							/>
+						))}
 					</ul>
 				</>
 			)}
-
 		</>
 	);
 }

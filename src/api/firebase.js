@@ -11,8 +11,11 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from './config';
-import { getFutureDate } from '../utils';
-import { calculateEstimate } from '../utils/calculateEstimates';
+import {
+	getFutureDate,
+	getDaysBetweenDates,
+	calculateEstimate,
+} from '../utils';
 
 /**
  * A custom hook that subscribes to the user's shopping lists in our Firestore
@@ -189,8 +192,14 @@ export async function updateItem(listPath, itemId) {
 	 */
 
 	const docRef = doc(db, listPath, 'items', itemId);
+	const docSnap = await getDoc(docRef);
+	const itemData = docSnap.data();
+	const timeLastPurchased = itemData?.dateLastPurchased?.toDate().getTime();
+	const timeNow = new Date().getTime();
+	const daysSinceLastPurchase = getDaysBetweenDates(timeLastPurchased, timeNow);
+
 	await updateDoc(docRef, {
-		dateNextPurchased: calculateEstimate(),
+		dateNextPurchased: calculateEstimate(daysSinceLastPurchase),
 		dateLastPurchased: new Date(),
 		totalPurchases: increment(1),
 	});
