@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from 'react';
 import { db } from './config';
 import { getFutureDate } from '../utils';
+import { calculateEstimate } from '../utils/calculateEstimates';
 
 /**
  * A custom hook that subscribes to the user's shopping lists in our Firestore
@@ -189,6 +190,7 @@ export async function updateItem(listPath, itemId) {
 
 	const docRef = doc(db, listPath, 'items', itemId);
 	await updateDoc(docRef, {
+		dateNextPurchased: calculateEstimate(),
 		dateLastPurchased: new Date(),
 		totalPurchases: increment(1),
 	});
