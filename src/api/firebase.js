@@ -194,12 +194,29 @@ export async function updateItem(listPath, itemId) {
 	const docRef = doc(db, listPath, 'items', itemId);
 	const docSnap = await getDoc(docRef);
 	const itemData = docSnap.data();
+	console.log(itemData);
+
+	const timeCreated = itemData?.dateCreated?.toDate().getTime();
+	const timeNextPurchased = itemData?.dateNextPurchased?.toDate().getTime();
 	const timeLastPurchased = itemData?.dateLastPurchased?.toDate().getTime();
 	const timeNow = new Date().getTime();
-	const daysSinceLastPurchase = getDaysBetweenDates(timeLastPurchased, timeNow);
+
+	const daysSinceLastPurchase = !itemData.dateLastPurchased
+		? 0
+		: getDaysBetweenDates(timeLastPurchased, timeNow);
+	const numOfPurchases = itemData.totalPurchases;
+	const previousEstimate = !itemData.dateLastPurchased
+		? getDaysBetweenDates(timeCreated, timeNextPurchased)
+		: getDaysBetweenDates(timeLastPurchased, timeNextPurchased);
+
+	const daysTillNextPurchaseEstimate = calculateEstimate(
+		previousEstimate,
+		daysSinceLastPurchase,
+		numOfPurchases,
+	);
 
 	await updateDoc(docRef, {
-		dateNextPurchased: calculateEstimate(daysSinceLastPurchase),
+		dateNextPurchased: getFutureDate(daysTillNextPurchaseEstimate),
 		dateLastPurchased: new Date(),
 		totalPurchases: increment(1),
 	});
