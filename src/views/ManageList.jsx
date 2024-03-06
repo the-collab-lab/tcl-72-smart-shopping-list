@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { addItem, shareList } from '../api/firebase';
+import { addItem, shareList, useShoppingListData } from '../api/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,24 +18,25 @@ export function ManageList({ listPath, userId }) {
 		theme: 'light',
 	};
 
+	// Fetch existing items from the list
+	const existingItems = useShoppingListData(listPath);
+
 	const handleItemSubmit = async (e) => {
 		e.preventDefault();
 
-		//2. Fetch existing items to check if in the  database already
+		// Check if the entered item name already exists in the list
+		const itemExists = existingItems.some(
+			(item) => item.name.toLowerCase() === itemName.trim().toLowerCase(),
+		);
+
+		if (itemExists) {
+			// If the item already exists, display an error message and exit the function
+			toast.error('Item already exists in the list');
+			return;
+		}
+
+		// Add the new item to the database
 		try {
-			// const existingItems = await fetchExistingItems(listPath);// error not defined
-			// // Check if the item already exists in the list
-			// const itemExists = existingItems.some(
-			// 	(item) => item.itemName.toLowerCase() === itemName.toLowerCase(),
-			// );
-
-			// // If the item already exists, display an error message and exit the function
-			// if (itemExists) {
-			// 	toast.error('Item already exists in the list');
-			// 	return;
-			// }
-
-			// Add the new item to the database
 			await addItem(listPath, {
 				itemName,
 				daysUntilNextPurchase,
@@ -81,11 +82,12 @@ export function ManageList({ listPath, userId }) {
 						type="text"
 						name="itemName"
 						id="itemName"
+						required
 					/>
 				</div>
 				<div>
 					<label htmlFor="daysUntilNextPurchase">
-						Days Until NextPurchase:{' '}
+						Days Until Next Purchase:{' '}
 					</label>
 					<select
 						id="daysUntilNextPurchase"
