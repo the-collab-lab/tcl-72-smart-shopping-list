@@ -20,15 +20,33 @@ export function ManageList({ listPath, userId }) {
 
 	const handleItemSubmit = async (e) => {
 		e.preventDefault();
+
+		//2. Fetch existing items to check if in the  database already
 		try {
+			// const existingItems = await fetchExistingItems(listPath);// error not defined
+			// // Check if the item already exists in the list
+			// const itemExists = existingItems.some(
+			// 	(item) => item.itemName.toLowerCase() === itemName.toLowerCase(),
+			// );
+
+			// // If the item already exists, display an error message and exit the function
+			// if (itemExists) {
+			// 	toast.error('Item already exists in the list');
+			// 	return;
+			// }
+
+			// Add the new item to the database
 			await addItem(listPath, {
 				itemName,
 				daysUntilNextPurchase,
 			});
+			// Display success message and reset the form fields
 			toast.success('Item saved to database');
 			setItemName('');
 			setDaysUntilNextPurchase(7);
 		} catch (error) {
+			// If an error occurs while adding the item, display an error message and reset the form fields
+			console.error('Error adding item:', error);
 			toast.error('Item not saved');
 			setItemName('');
 			setDaysUntilNextPurchase(7);
@@ -37,6 +55,7 @@ export function ManageList({ listPath, userId }) {
 
 	const handleEmailSubmit = async (e) => {
 		e.preventDefault();
+
 		try {
 			await shareList(listPath, userId, email);
 			toast.success('List shared to email');
@@ -62,7 +81,6 @@ export function ManageList({ listPath, userId }) {
 						type="text"
 						name="itemName"
 						id="itemName"
-						required
 					/>
 				</div>
 				<div>
