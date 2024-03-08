@@ -24,9 +24,16 @@ export function ManageList({ listPath, userId }) {
 	const handleItemSubmit = async (e) => {
 		e.preventDefault();
 
-		// Check if the entered item name already exists in the list
+		// Normalize the entered item name (lowercase and remove punctuation)
+		const normalizedItemName = itemName
+			.trim()
+			.toLowerCase()
+			.replace(/[^\w\s]/gi, '');
+
+		// Check if the entered item name already exists in the list with normalized casing and punctuation
 		const itemExists = existingItems.some(
-			(item) => item.name.toLowerCase() === itemName.trim().toLowerCase(),
+			(item) =>
+				item.name.toLowerCase().replace(/[^\w\s]/gi, '') === normalizedItemName,
 		);
 
 		if (itemExists) {
@@ -38,7 +45,8 @@ export function ManageList({ listPath, userId }) {
 		// Add the new item to the database
 		try {
 			await addItem(listPath, {
-				itemName,
+				itemName: normalizedItemName, // Pass normalized item name
+				originalItemName: itemName, // Pass original item name
 				daysUntilNextPurchase,
 			});
 			// Display success message and reset the form fields
