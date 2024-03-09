@@ -20,6 +20,10 @@ export function ManageList({ listPath, userId }) {
 
 	const handleItemSubmit = async (e) => {
 		e.preventDefault();
+		if (!itemName.trim()) {
+			toast.error('Item cannot be empty');
+			return;
+		}
 		try {
 			await addItem(listPath, {
 				itemName,
