@@ -23,7 +23,7 @@ export function ManageList({ listPath, userId }) {
 
 	const handleItemSubmit = async (e) => {
 		e.preventDefault();
-
+		// checks if the user submits an empty item
 		if (!itemName.trim()) {
 			toast.error('Item cannot be empty');
 			return;
