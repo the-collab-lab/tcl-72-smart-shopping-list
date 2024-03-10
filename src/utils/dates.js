@@ -12,5 +12,5 @@ export function getFutureDate(offset) {
 }
 
 export function getDaysBetweenDates(firstDate, secondDate) {
-	return Math.floor((secondDate - firstDate) / ONE_DAY_IN_MILLISECONDS);
+	return Math.round((secondDate - firstDate) / ONE_DAY_IN_MILLISECONDS);
 }
