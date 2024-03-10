@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { addItem, shareList, useShoppingListData } from '../api/firebase';
+import { addItem, shareList } from '../api/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export function ManageList({ listPath, userId }) {
+export function ManageList({ listPath, userId, existingItems }) {
 	const [itemName, setItemName] = useState('');
 	const [daysUntilNextPurchase, setDaysUntilNextPurchase] = useState(7);
 	const [email, setEmail] = useState('');
@@ -17,9 +17,6 @@ export function ManageList({ listPath, userId }) {
 		progress: undefined,
 		theme: 'light',
 	};
-
-	// Fetch existing items from the list
-	const existingItems = useShoppingListData(listPath);
 
 	const handleItemSubmit = async (e) => {
 		e.preventDefault();
@@ -51,8 +48,8 @@ export function ManageList({ listPath, userId }) {
 
 		try {
 			await addItem(listPath, {
+				originalItemName: itemName, // Pass original item nam
 				itemName: normalizedItemName, // Pass normalized item name
-				originalItemName: itemName, // Pass original item name
 				daysUntilNextPurchase,
 			});
 			// Display success message and reset the form fields
@@ -96,7 +93,6 @@ export function ManageList({ listPath, userId }) {
 						type="text"
 						name="itemName"
 						id="itemName"
-						required
 					/>
 				</div>
 				<div>
