@@ -165,10 +165,7 @@ export async function shareList(listPath, currentUserId, recipientEmail) {
  * @param {string} itemData.itemName The name of the item.
  * @param {number} itemData.daysUntilNextPurchase The number of days until the user thinks they'll need to buy the item again.
  */
-export async function addItem(
-	listPath,
-	{ itemName, originalItemName, daysUntilNextPurchase },
-) {
+export async function addItem(listPath, { itemName, daysUntilNextPurchase }) {
 	const listCollectionRef = collection(db, listPath, 'items');
 	// TODO: Replace this call to console.log with the appropriate
 	// Firebase function, so this information is sent to your database!
@@ -179,7 +176,6 @@ export async function addItem(
 		dateLastPurchased: null,
 		dateNextPurchased: getFutureDate(daysUntilNextPurchase),
 		name: itemName,
-		originalName: originalItemName, // Save the original item name in the database
 		totalPurchases: 0,
 	});
 }
