@@ -180,7 +180,6 @@ export async function addItem(
 		dateLastPurchased: null,
 		dateNextPurchased: getFutureDate(daysUntilNextPurchase),
 		name: itemName,
-		originalName: originalItemName, // Save the original item name in the database
 		totalPurchases: 0,
 	});
 }

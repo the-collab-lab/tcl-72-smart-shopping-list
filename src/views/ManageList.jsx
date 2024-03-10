@@ -27,10 +27,7 @@ export function ManageList({ listPath, userId, existingItems }) {
 		}
 
 		// Normalize the entered item name (lowercase and remove punctuation)
-		const normalizedItemName = itemName
-			.trim()
-			.toLowerCase()
-			.replace(/[^\w\s]/gi, '');
+		const normalizedItemName = itemName.trim().replace(/[^\w\s]/gi, '');
 
 		// Check if the entered item name already exists in the list with normalized casing and punctuation
 		const itemExists = existingItems.some(
@@ -48,7 +45,6 @@ export function ManageList({ listPath, userId, existingItems }) {
 
 		try {
 			await addItem(listPath, {
-				originalItemName: itemName, // Pass original item nam
 				itemName: normalizedItemName, // Pass normalized item name
 				daysUntilNextPurchase,
 			});
