@@ -3,7 +3,7 @@ import { addItem, shareList } from '../api/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export function ManageList({ listPath, userId }) {
+export function ManageList({ listPath, userId, existingItems }) {
 	const [itemName, setItemName] = useState('');
 	const [daysUntilNextPurchase, setDaysUntilNextPurchase] = useState(7);
 	const [email, setEmail] = useState('');
@@ -20,15 +20,45 @@ export function ManageList({ listPath, userId }) {
 
 	const handleItemSubmit = async (e) => {
 		e.preventDefault();
+		// checks if the user submits an empty item
+		if (!itemName.trim()) {
+			toast.error('Item cannot be empty');
+			return;
+		}
+
+		// Normalize the entered item name (lowercase and remove punctuation)
+		const normalizedItemName = itemName
+			.trim()
+			.toLowerCase()
+			.replace(/[^\w\s]/gi, '');
+
+		// Check if the entered item name already exists in the list with normalized casing and punctuation
+		const itemExists = existingItems.some(
+			(item) =>
+				item.name.toLowerCase().replace(/[^\w\s]/gi, '') === normalizedItemName,
+		);
+
+		if (itemExists) {
+			// If the item already exists, display an error message and exit the function
+			toast.error('Item already exists in the list');
+			return;
+		}
+
+		// Add the new item to the database
+
 		try {
 			await addItem(listPath, {
-				itemName,
+				originalItemName: itemName, // Pass original item nam
+				itemName: normalizedItemName, // Pass normalized item name
 				daysUntilNextPurchase,
 			});
+			// Display success message and reset the form fields
 			toast.success('Item saved to database');
 			setItemName('');
 			setDaysUntilNextPurchase(7);
 		} catch (error) {
+			// If an error occurs while adding the item, display an error message and reset the form fields
+			console.error('Error adding item:', error);
 			toast.error('Item not saved');
 			setItemName('');
 			setDaysUntilNextPurchase(7);
@@ -37,6 +67,7 @@ export function ManageList({ listPath, userId }) {
 
 	const handleEmailSubmit = async (e) => {
 		e.preventDefault();
+
 		try {
 			await shareList(listPath, userId, email);
 			toast.success('List shared to email');
@@ -62,12 +93,11 @@ export function ManageList({ listPath, userId }) {
 						type="text"
 						name="itemName"
 						id="itemName"
-						required
 					/>
 				</div>
 				<div>
 					<label htmlFor="daysUntilNextPurchase">
-						Days Until NextPurchase:{' '}
+						Days Until Next Purchase:{' '}
 					</label>
 					<select
 						id="daysUntilNextPurchase"
