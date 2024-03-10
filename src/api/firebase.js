@@ -11,7 +11,8 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from './config';
-import { getFutureDate } from '../utils';
+import { getFutureDate, getDaysBetweenDates } from '../utils';
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 /**
  * A custom hook that subscribes to the user's shopping lists in our Firestore
@@ -180,7 +181,7 @@ export async function addItem(listPath, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem(listPath, itemId) {
+export async function updateItem(listPath, itemId, itemData) {
 	/**
 	 * TODO: Fill this out so that it uses the correct Firestore function
 	 * to update an existing item. You'll need to figure out what arguments
@@ -188,7 +189,28 @@ export async function updateItem(listPath, itemId) {
 	 */
 
 	const docRef = doc(db, listPath, 'items', itemId);
+
+	const timeCreated = itemData?.dateCreated?.toDate().getTime();
+	const timeNextPurchased = itemData?.dateNextPurchased?.toDate().getTime();
+	const timeLastPurchased = itemData?.dateLastPurchased?.toDate().getTime();
+	const timeNow = new Date().getTime();
+
+	const daysSinceLastPurchase = !itemData.dateLastPurchased
+		? getDaysBetweenDates(timeCreated, timeNow)
+		: getDaysBetweenDates(timeLastPurchased, timeNow);
+	const numOfPurchases = itemData.totalPurchases;
+	const previousEstimate = !itemData.dateLastPurchased
+		? getDaysBetweenDates(timeCreated, timeNextPurchased)
+		: getDaysBetweenDates(timeLastPurchased, timeNextPurchased);
+
+	const daysTillNextPurchaseEstimate = calculateEstimate(
+		previousEstimate,
+		daysSinceLastPurchase,
+		numOfPurchases,
+	);
+
 	await updateDoc(docRef, {
+		dateNextPurchased: getFutureDate(daysTillNextPurchaseEstimate),
 		dateLastPurchased: new Date(),
 		totalPurchases: increment(1),
 	});

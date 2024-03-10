@@ -5,9 +5,8 @@ import { useNavigate } from 'react-router-dom';
 export function List({ data, listPath }) {
 	const [searchInput, setSearchInput] = useState('');
 	const [filteredItems, setFilteredItems] = useState([]);
-
+	console.log(data);
 	const navigate = useNavigate();
-
 
 	useEffect(() => {
 		// Initialize filteredItems with the entire data array when the component mounts
@@ -31,11 +30,9 @@ export function List({ data, listPath }) {
 		// Reset filteredItems to the entire data array when search input is cleared
 		setFilteredItems(data);
 	};
-	console.log(data);
+
 	return (
 		<>
-
-
 			{data.length < 1 ? (
 				<div className="welcome-prompt">
 					<h2>Welcome to Your List!</h2>
@@ -65,19 +62,17 @@ export function List({ data, listPath }) {
 						</button>
 					</form>
 					<ul>
-					{filteredItems.map((item) => (
-					<ListItem
-						key={item.id}
-						id={item.id}
-						name={item.name}
-						listPath={listPath}
-						dateLastPurchased={item.dateLastPurchased}
-					/>
-				))}
+						{filteredItems.map((item) => (
+							<ListItem
+								key={item.id}
+								id={item.id}
+								listPath={listPath}
+								itemData={item}
+							/>
+						))}
 					</ul>
 				</>
 			)}
-
 		</>
 	);
 }
