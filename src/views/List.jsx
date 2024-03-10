@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export function List({ data, listPath }) {
 	const [searchInput, setSearchInput] = useState('');
 	const [filteredItems, setFilteredItems] = useState([]);
-
+	console.log(data);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -66,9 +66,8 @@ export function List({ data, listPath }) {
 							<ListItem
 								key={item.id}
 								id={item.id}
-								name={item.name}
 								listPath={listPath}
-								dateLastPurchased={item.dateLastPurchased}
+								itemData={item}
 							/>
 						))}
 					</ul>
