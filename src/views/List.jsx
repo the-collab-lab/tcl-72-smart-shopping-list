@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ListItem } from '../components';
 import { useNavigate } from 'react-router-dom';
 
 export function List({ data, listPath }) {
 	const [searchInput, setSearchInput] = useState('');
 	const [filteredItems, setFilteredItems] = useState([]);
-	console.log(data);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -19,7 +17,7 @@ export function List({ data, listPath }) {
 			const searchResult = data.filter((item) =>
 				item.name.toLowerCase().includes(searchInput.toLowerCase()),
 			);
-			return setFilteredItems(searchResult);
+			setFilteredItems(searchResult);
 		};
 		filterItems(searchInput);
 	}, [searchInput, data]);
@@ -29,6 +27,29 @@ export function List({ data, listPath }) {
 		setSearchInput('');
 		// Reset filteredItems to the entire data array when search input is cleared
 		setFilteredItems(data);
+	};
+
+	// Function to determine the urgency of an item based on last purchase date
+
+	const getUrgencyIndicator = (lastPurchaseDate) => {
+		if (!lastPurchaseDate) {
+			return 'Inactive';
+		}
+
+		const today = new Date();
+		const daysSinceLastPurchase = Math.floor(
+			(today - new Date(lastPurchaseDate)) / (1000 * 60 * 60 * 24),
+		);
+
+		if (daysSinceLastPurchase >= 60) {
+			return 'Inactive';
+		} else if (daysSinceLastPurchase <= 7) {
+			return 'Soon';
+		} else if (daysSinceLastPurchase <= 30) {
+			return 'Kind of soon';
+		} else {
+			return 'Not soon';
+		}
 	};
 
 	return (
@@ -61,16 +82,20 @@ export function List({ data, listPath }) {
 							X
 						</button>
 					</form>
-					<ul>
-						{filteredItems.map((item) => (
-							<ListItem
-								key={item.id}
-								id={item.id}
-								listPath={listPath}
-								itemData={item}
-							/>
-						))}
-					</ul>
+					{filteredItems.map((item) => (
+						<div key={item.id}>
+							<label>
+								<input
+									type="checkbox"
+									value={item.id}
+									onChange={() => {
+										// Handle checkbox change
+									}}
+								/>
+								{item.name} ({getUrgencyIndicator(item.lastPurchaseDate)})
+							</label>
+						</div>
+					))}
 				</>
 			)}
 		</>
