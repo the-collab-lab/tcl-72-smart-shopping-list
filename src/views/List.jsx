@@ -1,16 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getDaysBetweenDates } from '../utils';
+// import { comparePurchaseUrgency } from '../api/firebase';
 
 export function List({ data, listPath }) {
 	const [searchInput, setSearchInput] = useState('');
 	const [items, setItems] = useState([]);
 	const navigate = useNavigate();
+	const timeNow = new Date().getTime();
+
+	// temporary array containing position, name, and sort value
+	const mapped = data?.map((x, i) => {
+		const timeNextPurchased = x.dateNextPurchased.toDate().getTime();
+		const daysTillNextPurchase = getDaysBetweenDates(
+			timeNow,
+			timeNextPurchased,
+		);
+		return { i, name: x.name, value: daysTillNextPurchase };
+	});
 
 	useEffect(() => {
+		// Function to sort items based on purchase urgency & alphabetical order
+		mapped.sort(function (a, b) {
+			if (a.value === b.value) {
+				if (a.name < b.name) {
+					return -1;
+				}
+				if (a.name > b.name) {
+					return 1;
+				}
+				return 0;
+			}
+			return a.value - b.value;
+		});
+		const sortedItems = mapped.map((x) => data[x.i]);
 		// Function to filter items based on search input
 		const filterItems = (searchInput) => {
-			const filteredItems = data.filter((item) =>
+			const filteredItems = sortedItems.filter((item) =>
 				item.name.toLowerCase().includes(searchInput.toLowerCase()),
 			);
 			return setItems(filteredItems);
@@ -26,9 +52,8 @@ export function List({ data, listPath }) {
 	};
 
 	// Function to determine the urgency of an item based on next purchase date
-	const getUrgencyIndicator = (dateNextPurchased) => {
+	const getUrgencyIndicator = (timeNow, dateNextPurchased) => {
 		const timeNextPurchased = dateNextPurchased.toDate().getTime();
-		const timeNow = new Date().getTime();
 		const daysTillNextPurchase = getDaysBetweenDates(
 			timeNow,
 			timeNextPurchased,
@@ -85,7 +110,8 @@ export function List({ data, listPath }) {
 										// Handle checkbox change
 									}}
 								/>
-								{item.name} ({getUrgencyIndicator(item.dateNextPurchased)})
+								{item.name} (
+								{getUrgencyIndicator(timeNow, item.dateNextPurchased)})
 							</label>
 						</div>
 					))}
