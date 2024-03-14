@@ -22,6 +22,15 @@ export function ListItem({ id, listPath, itemData }) {
 		updateItem(listPath, id, itemData);
 	};
 
+	const handleDelete = () => {
+		if (window.confirm('Do you really want to delete this item?')) {
+			//TODO: call the updated delete function from the firebase api file
+			console.log(id);
+		} else {
+			return;
+		}
+	};
+
 	return (
 		<li className="ListItem">
 			<label htmlFor={itemData.name}>
@@ -33,6 +42,7 @@ export function ListItem({ id, listPath, itemData }) {
 				/>
 				{itemData.name}
 			</label>
+			<button onClick={handleDelete}>Delete item</button>
 		</li>
 	);
 }
