@@ -43,18 +43,29 @@ export function List({ data, listPath }) {
 	};
 
 	// Function to determine the urgency of an item based on next purchase date
-	const getUrgencyIndicator = (timeNow, dateNextPurchased) => {
+	const getUrgencyIndicator = (
+		timeNow,
+		dateNextPurchased,
+		dateLastPurchased,
+	) => {
 		const timeNextPurchased = dateNextPurchased.toDate().getTime();
+		const timeLastPurchased = dateLastPurchased?.toDate().getTime();
 		const daysTillNextPurchase = getDaysBetweenDates(
 			timeNow,
 			timeNextPurchased,
 		);
+		const daysSinceLastPurchase = getDaysBetweenDates(
+			timeLastPurchased,
+			timeNow,
+		);
 
-		if (daysTillNextPurchase >= 60) {
+		if (daysSinceLastPurchase >= 60) {
 			return 'Inactive';
-		} else if (daysTillNextPurchase <= 7) {
+		}
+		if (daysTillNextPurchase <= 7) {
 			return 'Soon';
-		} else if (daysTillNextPurchase > 7 && daysTillNextPurchase <= 30) {
+		}
+		if (daysTillNextPurchase > 7 && daysTillNextPurchase <= 30) {
 			return 'Kind of soon';
 		} else {
 			return 'Not soon';
@@ -102,16 +113,32 @@ export function List({ data, listPath }) {
 									}}
 								/>
 								{item.name} --- {}
-								{getUrgencyIndicator(timeNow, item.dateNextPurchased) ===
-									'Soon' && <CgDanger className="soon" />}
-								{getUrgencyIndicator(timeNow, item.dateNextPurchased) ===
-									'Kind of soon' && <CgDanger className="kind-of-soon" />}
-								{getUrgencyIndicator(timeNow, item.dateNextPurchased) ===
-									'Not soon' && <CgDanger className="not-soon" />}
-								{getUrgencyIndicator(timeNow, item.dateNextPurchased) ===
-									'Inactive' && <CgDanger className="inactive" disabled />}
+								{getUrgencyIndicator(
+									timeNow,
+									item.dateNextPurchased,
+									item.dateLastPurchased,
+								) === 'Soon' && <CgDanger className="soon" />}
+								{getUrgencyIndicator(
+									timeNow,
+									item.dateNextPurchased,
+									item.dateLastPurchased,
+								) === 'Kind of soon' && <CgDanger className="kind-of-soon" />}
+								{getUrgencyIndicator(
+									timeNow,
+									item.dateNextPurchased,
+									item.dateLastPurchased,
+								) === 'Not soon' && <CgDanger className="not-soon" />}
+								{getUrgencyIndicator(
+									timeNow,
+									item.dateNextPurchased,
+									item.dateLastPurchased,
+								) === 'Inactive' && <CgDanger className="inactive" disabled />}
 								{}
-								{getUrgencyIndicator(timeNow, item.dateNextPurchased)}
+								{getUrgencyIndicator(
+									timeNow,
+									item.dateNextPurchased,
+									item.dateLastPurchased,
+								)}
 							</label>
 						</div>
 					))}
