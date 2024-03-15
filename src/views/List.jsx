@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getDaysBetweenDates } from '../utils';
+import { CgDanger } from 'react-icons/cg';
+
 // import { comparePurchaseUrgency } from '../api/firebase';
 
 export function List({ data, listPath }) {
@@ -34,6 +36,7 @@ export function List({ data, listPath }) {
 			return a.value - b.value;
 		});
 		const sortedItems = mapped.map((x) => data[x.i]);
+
 		// Function to filter items based on search input
 		const filterItems = (searchInput) => {
 			const filteredItems = sortedItems.filter((item) =>
@@ -110,8 +113,17 @@ export function List({ data, listPath }) {
 										// Handle checkbox change
 									}}
 								/>
-								{item.name} (
-								{getUrgencyIndicator(timeNow, item.dateNextPurchased)})
+								{item.name} --- {}
+								{getUrgencyIndicator(timeNow, item.dateNextPurchased) ===
+									'Soon' && <CgDanger className="soon" />}
+								{getUrgencyIndicator(timeNow, item.dateNextPurchased) ===
+									'Kind of soon' && <CgDanger className="kind-of-soon" />}
+								{getUrgencyIndicator(timeNow, item.dateNextPurchased) ===
+									'Not soon' && <CgDanger className="not-soon" />}
+								{getUrgencyIndicator(timeNow, item.dateNextPurchased) ===
+									'Inactive' && <CgDanger className="inactive" disabled />}
+								{}
+								{getUrgencyIndicator(timeNow, item.dateNextPurchased)}
 							</label>
 						</div>
 					))}
