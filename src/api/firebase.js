@@ -227,14 +227,17 @@ export async function deleteItem() {
 	 */
 }
 
-// export async function comparePurchaseUrgency (a,b) {
-//   if (a.value === b.value) {
-//     if (a.name < b.name) {
-//       return -1;
-//     }
-//     if (a.name > b.name) {
-//       return 1;
-//     }
-//     return 0;
-//   } return a.value - b.value
-// }
+export async function comparePurchaseUrgency(dataset) {
+	dataset.sort((a, b) => {
+		if (a.value === b.value) {
+			if (a.name < b.name) {
+				return -1;
+			}
+			if (a.name > b.name) {
+				return 1;
+			}
+			return 0;
+		}
+		return a.value - b.value;
+	});
+}

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getDaysBetweenDates } from '../utils';
 import { CgDanger } from 'react-icons/cg';
-
-// import { comparePurchaseUrgency } from '../api/firebase';
+import { comparePurchaseUrgency } from '../api/firebase';
 
 export function List({ data, listPath }) {
 	const [searchInput, setSearchInput] = useState('');
@@ -23,18 +22,7 @@ export function List({ data, listPath }) {
 
 	useEffect(() => {
 		// Function to sort items based on purchase urgency & alphabetical order
-		mapped.sort(function (a, b) {
-			if (a.value === b.value) {
-				if (a.name < b.name) {
-					return -1;
-				}
-				if (a.name > b.name) {
-					return 1;
-				}
-				return 0;
-			}
-			return a.value - b.value;
-		});
+		comparePurchaseUrgency(mapped);
 		const sortedItems = mapped.map((x) => data[x.i]);
 
 		// Function to filter items based on search input
