@@ -1,5 +1,5 @@
 import './ListItem.css';
-import { updateItem } from '../api/firebase';
+import { updateItem, deleteItem } from '../api/firebase';
 import { useState, useEffect } from 'react';
 
 export function ListItem({ id, listPath, itemData }) {
@@ -22,14 +22,14 @@ export function ListItem({ id, listPath, itemData }) {
 		updateItem(listPath, id, itemData);
 	};
 
-	const handleDelete = () => {
-		if (window.confirm('Do you really want to delete this item?')) {
-			//TODO: call the updated delete function from the firebase api file
-			console.log(id);
-		} else {
-			return;
-		}
-	};
+    const handleDelete = async () => {
+        if (window.confirm('Do you really want to delete this item?')) {
+            await deleteItem(listPath, id);
+            console.log('Item deleted successfully');
+        } else {
+            return;
+        }
+    };
 
 	return (
 		<li className="ListItem">
