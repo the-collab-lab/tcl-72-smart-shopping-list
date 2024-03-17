@@ -42,7 +42,7 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 		if (daysSinceLastPurchase >= 60) {
 			return (
 				<span>
-					<CgDanger className="inactive" />
+					--- <CgDanger className="inactive" />
 					Inactive
 				</span>
 			);
@@ -50,7 +50,7 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 		if (daysTillNextPurchase <= 7) {
 			return (
 				<span>
-					<CgDanger className="soon" />
+					--- <CgDanger className="soon" />
 					Soon
 				</span>
 			);
@@ -58,14 +58,14 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 		if (daysTillNextPurchase > 7 && daysTillNextPurchase <= 30) {
 			return (
 				<span>
-					<CgDanger className="kind-of-soon" />
+					--- <CgDanger className="kind-of-soon" />
 					Kind of soon
 				</span>
 			);
 		} else {
 			return (
 				<span>
-					<CgDanger className="not-soon" />
+					--- <CgDanger className="not-soon" />
 					Not soon
 				</span>
 			);
@@ -81,7 +81,7 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 					checked={itemChecked}
 					onChange={setItemPurchased}
 				/>
-				{name} --- {}
+				{name}{' '}
 				{getUrgencyIndicator(timeNow, dateNextPurchased, dateLastPurchased)}
 			</label>
 		</li>

@@ -13,11 +13,23 @@ export function List({ data, listPath }) {
 	// temporary array containing position, name, and sort value
 	const mapped = data?.map((x, i) => {
 		const timeNextPurchased = x.dateNextPurchased.toDate().getTime();
+		const timeLastPurchased = x.dateLastPurchased?.toDate().getTime();
 		const daysTillNextPurchase = getDaysBetweenDates(
 			timeNow,
 			timeNextPurchased,
 		);
-		return { i, name: x.name, value: daysTillNextPurchase };
+		const daysSinceLastPurchase = getDaysBetweenDates(
+			timeLastPurchased,
+			timeNow,
+		);
+		return {
+			i,
+			name: x.name,
+			value:
+				daysSinceLastPurchase >= 60
+					? daysSinceLastPurchase
+					: daysTillNextPurchase,
+		};
 	});
 
 	useEffect(() => {
