@@ -1,5 +1,5 @@
 import './ListItem.css';
-import { updateItem } from '../api/firebase';
+import { updateItem, deleteItem } from '../api/firebase';
 import { useState, useEffect } from 'react';
 
 export function ListItem({ id, listPath, itemData }) {
@@ -22,6 +22,15 @@ export function ListItem({ id, listPath, itemData }) {
 		updateItem(listPath, id, itemData);
 	};
 
+    const handleDelete = async () => {
+        if (window.confirm('Do you really want to delete this item?')) {
+            await deleteItem(listPath, id);
+            console.log('Item deleted successfully');
+        } else {
+            return;
+        }
+    };
+
 	return (
 		<li className="ListItem">
 			<label htmlFor={itemData.name}>
@@ -33,6 +42,7 @@ export function ListItem({ id, listPath, itemData }) {
 				/>
 				{itemData.name}
 			</label>
+			<button onClick={handleDelete}>Delete item</button>
 		</li>
 	);
 }
