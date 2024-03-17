@@ -1,25 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { ListItem } from '../components';
 import { useNavigate } from 'react-router-dom';
+import { getDaysBetweenDates } from '../utils';
+import { comparePurchaseUrgency } from '../api/firebase';
+import { ListItem } from '../components/ListItem';
 
 export function List({ data, listPath }) {
 	const [searchInput, setSearchInput] = useState('');
-	const [filteredItems, setFilteredItems] = useState([]);
-	console.log(data);
+	const [items, setItems] = useState([]);
 	const navigate = useNavigate();
+	const timeNow = new Date().getTime();
+
+	// temporary array containing position, name, and sort value
+	const mapped = data?.map((x, i) => {
+		const timeNextPurchased = x.dateNextPurchased.toDate().getTime();
+		const timeLastPurchased = x.dateLastPurchased?.toDate().getTime();
+		const daysTillNextPurchase = getDaysBetweenDates(
+			timeNow,
+			timeNextPurchased,
+		);
+		const daysSinceLastPurchase = getDaysBetweenDates(
+			timeLastPurchased,
+			timeNow,
+		);
+		return {
+			i,
+			name: x.name,
+			value:
+				daysSinceLastPurchase >= 60
+					? daysSinceLastPurchase
+					: daysTillNextPurchase,
+		};
+	});
 
 	useEffect(() => {
-		// Initialize filteredItems with the entire data array when the component mounts
-		setFilteredItems(data);
-	}, [data]);
+		// Function to sort items based on purchase urgency & alphabetical order
+		comparePurchaseUrgency(mapped);
+		const sortedItems = mapped.map((x) => data[x.i]);
 
-	// Function to filter items based on search input
-	useEffect(() => {
+		// Function to filter items based on search input
 		const filterItems = (searchInput) => {
-			const searchResult = data.filter((item) =>
+			const filteredItems = sortedItems.filter((item) =>
 				item.name.toLowerCase().includes(searchInput.toLowerCase()),
 			);
-			return setFilteredItems(searchResult);
+			return setItems(filteredItems);
 		};
 		filterItems(searchInput);
 	}, [searchInput, data]);
@@ -28,7 +51,7 @@ export function List({ data, listPath }) {
 	const clearSearchInput = () => {
 		setSearchInput('');
 		// Reset filteredItems to the entire data array when search input is cleared
-		setFilteredItems(data);
+		setItems(data);
 	};
 
 	return (
@@ -61,16 +84,15 @@ export function List({ data, listPath }) {
 							X
 						</button>
 					</form>
-					<ul>
-						{filteredItems.map((item) => (
-							<ListItem
-								key={item.id}
-								id={item.id}
-								listPath={listPath}
-								itemData={item}
-							/>
-						))}
-					</ul>
+					{items.map((item) => (
+						<ListItem
+							key={item.id}
+							id={item.id}
+							listPath={listPath}
+							itemData={item}
+							timeNow={timeNow}
+						/>
+					))}
 				</>
 			)}
 		</>

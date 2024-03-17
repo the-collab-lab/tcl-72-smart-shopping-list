@@ -221,7 +221,21 @@ export async function updateItem(listPath, itemId, itemData) {
 }
 
 export async function deleteItem(listPath, itemId) {
-    const docRef = doc(db, listPath, 'items', itemId);
-    await deleteDoc(docRef);
+	const docRef = doc(db, listPath, 'items', itemId);
+	await deleteDoc(docRef);
 }
 
+export async function comparePurchaseUrgency(dataset) {
+	dataset.sort((a, b) => {
+		if (a.value === b.value) {
+			if (a.name < b.name) {
+				return -1;
+			}
+			if (a.name > b.name) {
+				return 1;
+			}
+			return 0;
+		}
+		return a.value - b.value;
+	});
+}
