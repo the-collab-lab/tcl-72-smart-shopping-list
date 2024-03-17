@@ -1,5 +1,5 @@
 import './ListItem.css';
-import { updateItem } from '../api/firebase';
+import { updateItem, deleteItem } from '../api/firebase';
 import { useState, useEffect } from 'react';
 import { getDaysBetweenDates } from '../utils';
 import { CgDanger } from 'react-icons/cg';
@@ -20,6 +20,15 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 	const setItemPurchased = () => {
 		setItemChecked((prev) => !prev);
 		updateItem(listPath, id, itemData);
+	};
+
+	const handleDelete = async () => {
+		if (window.confirm('Do you really want to delete this item?')) {
+			await deleteItem(listPath, id);
+			console.log('Item deleted successfully');
+		} else {
+			return;
+		}
 	};
 
 	// Function to determine the urgency of an item based on next purchase date
@@ -84,6 +93,7 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 				{name}{' '}
 				{getUrgencyIndicator(timeNow, dateNextPurchased, dateLastPurchased)}
 			</label>
+			<button onClick={handleDelete}>Delete item</button>
 		</li>
 	);
 }
