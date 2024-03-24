@@ -1,6 +1,6 @@
 import { SingleList } from '../components/SingleList';
 import './Home.css';
-import { createList } from '../api/firebase';
+import { createList, deleteItem } from '../api/firebase';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,25 +33,26 @@ export function Home({ data, setListPath, userId, userEmail }) {
 	};
 
 	return (
-		<div className="Home">
-			<p>
-				Hello from the home (<code>/</code>) page!
-			</p>
-
+		<div className="home">
 			<form id="list" onSubmit={handleSubmit}>
-				<label htmlFor="listName">Name of shopping list: </label>
+				<label htmlFor="listName" className="pt-8 font-bold">
+					Create a shopping list
+				</label>
 				<br />
 				<input
 					type="text"
 					id="listName"
 					value={name}
 					onChange={handleChange}
+					className="input"
+					placeholder="Type Here..."
 					required
 				/>
 				<br />
-				<button type="submit">Create list</button>
+				<div className="btn">
+					<button type="submit">Create list</button>
+				</div>
 			</form>
-
 			<ul>
 				{data?.map((item) => (
 					<SingleList
@@ -59,6 +60,8 @@ export function Home({ data, setListPath, userId, userEmail }) {
 						name={item.name}
 						path={item.path}
 						setListPath={setListPath}
+						deleteItem={deleteItem}
+						itemId={item.id}
 					/>
 				))}
 			</ul>
