@@ -6,7 +6,10 @@ export function SingleList({ name, path, setListPath, deleteItem, itemId }) {
 		setListPath(path);
 	}
 	function handleDelete() {
-		deleteItem(path, itemId);
+		// Check if itemId is defined before calling deleteItem
+		if (itemId) {
+			deleteItem(name, itemId);
+		}
 	}
 
 	return (

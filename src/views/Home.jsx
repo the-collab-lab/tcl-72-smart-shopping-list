@@ -36,7 +36,7 @@ export function Home({ data, setListPath, userId, userEmail }) {
 		<div className="home">
 			<form id="list" onSubmit={handleSubmit}>
 				<label htmlFor="listName" className="pt-8 font-bold">
-					Create a shopping list
+					Kindly generate a shopping list
 				</label>
 				<br />
 				<input
@@ -50,7 +50,7 @@ export function Home({ data, setListPath, userId, userEmail }) {
 				/>
 				<br />
 				<div className="btn">
-					<button type="submit">Create list</button>
+					<button type="submit">Register List</button>
 				</div>
 			</form>
 			<ul>
