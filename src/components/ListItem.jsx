@@ -3,6 +3,9 @@ import { updateItem, deleteItem } from '../api/firebase';
 import { useState, useEffect } from 'react';
 import { getDaysBetweenDates } from '../utils';
 import { CgDanger } from 'react-icons/cg';
+import Checkbox from '@mui/material/Checkbox';
+import { FaTrashAlt } from 'react-icons/fa';
+import { Button } from '@mui/material';
 
 export function ListItem({ id, listPath, itemData, timeNow }) {
 	const [itemChecked, setItemChecked] = useState(false);
@@ -17,6 +20,7 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 			}
 		}
 	}, [id]);
+
 	const setItemPurchased = () => {
 		setItemChecked((prev) => !prev);
 		updateItem(listPath, id, itemData);
@@ -58,7 +62,7 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 		}
 		if (daysTillNextPurchase <= 7) {
 			return (
-				<span>
+				<span className="flex items-center gap-2">
 					--- <CgDanger className="soon" />
 					Soon
 				</span>
@@ -66,14 +70,14 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 		}
 		if (daysTillNextPurchase > 7 && daysTillNextPurchase <= 30) {
 			return (
-				<span>
+				<span className="flex items-center gap-2">
 					--- <CgDanger className="kind-of-soon" />
 					Kind of soon
 				</span>
 			);
 		} else {
 			return (
-				<span>
+				<span className="flex items-center gap-2">
 					--- <CgDanger className="not-soon" />
 					Not soon
 				</span>
@@ -82,18 +86,31 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 	};
 
 	return (
-		<li className="ListItem">
-			<label htmlFor={name}>
-				<input
-					name={name}
-					type="checkbox"
-					checked={itemChecked}
+		<li className="ListItem flex gap-10">
+			<label htmlFor={name} className="flex items-center gap-2">
+				<Checkbox
+					size="3"
+					name="name"
 					onChange={setItemPurchased}
+					checked={itemChecked}
 				/>
-				{name}{' '}
-				{getUrgencyIndicator(timeNow, dateNextPurchased, dateLastPurchased)}
+				<p className={`${itemChecked ? 'line-through text-white/50' : ''}`}>
+					{name}
+				</p>
+				{itemChecked ? (
+					<></>
+				) : (
+					getUrgencyIndicator(timeNow, dateNextPurchased, dateLastPurchased)
+				)}
 			</label>
-			<button onClick={handleDelete}>Delete item</button>
+			<Button
+				onClick={handleDelete}
+				className="flex gap-3 items-center"
+				variant="contained"
+			>
+				<FaTrashAlt size={13} />
+				<span className="text-lg font-bold">Delete item</span>
+			</Button>
 		</li>
 	);
 }
