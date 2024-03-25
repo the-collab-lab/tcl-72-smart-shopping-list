@@ -7,6 +7,7 @@ import { useAuth } from './api';
 import { useShoppingListData, useShoppingLists } from './api';
 
 import { useStateWithStorage } from './utils';
+import ProtectedRoutes from './utils/protectedRoutes';
 
 export function App() {
 	/**
@@ -58,20 +59,24 @@ export function App() {
 						}
 						// Pass userId and userEmail as props
 					/>
-					<Route
-						path="/list"
-						element={<List data={data} listPath={listPath} />}
-					/>
-					<Route
-						path="/manage-list"
-						element={
-							<ManageList
-								listPath={listPath}
-								userId={userId}
-								existingItems={data}
-							/>
-						}
-					/>
+					<Route element={<ProtectedRoutes />}>
+						<Route
+							path="/list"
+							element={<List data={data} listPath={listPath} />}
+						/>
+					</Route>
+					<Route element={<ProtectedRoutes />}>
+						<Route
+							path="/manage-list"
+							element={
+								<ManageList
+									listPath={listPath}
+									userId={userId}
+									existingItems={data}
+								/>
+							}
+						/>
+					</Route>
 				</Route>
 			</Routes>
 		</Router>

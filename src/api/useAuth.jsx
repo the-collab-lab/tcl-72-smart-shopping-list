@@ -11,7 +11,10 @@ import { addUserToDatabase } from './firebase.js';
 export const SignInButton = () => (
 	<button
 		type="button"
-		onClick={() => signInWithRedirect(auth, new GoogleAuthProvider())}
+		onClick={() => {
+			signInWithRedirect(auth, new GoogleAuthProvider());
+			localStorage.setItem('isAuthenticated', true);
+		}}
 	>
 		Sign In
 	</button>
@@ -21,7 +24,13 @@ export const SignInButton = () => (
  * A button that signs the user out of the app using Firebase Auth.
  */
 export const SignOutButton = () => (
-	<button type="button" onClick={() => auth.signOut()}>
+	<button
+		type="button"
+		onClick={() => {
+			auth.signOut();
+			localStorage.removeItem('isAuthenticated');
+		}}
+	>
 		Sign Out
 	</button>
 );
