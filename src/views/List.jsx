@@ -70,15 +70,17 @@ export function List({ data, listPath }) {
 				</div>
 			) : (
 				<div>
-					<form className="flex items-center gap-5">
-						<label htmlFor="search">Search: </label>
-						<input
-							type="search"
-							id="search"
-							value={searchInput}
-							onChange={(e) => setSearchInput(e.target.value)}
-							className="p-3 focus:outline-none"
-						/>
+					<form className="flex flex-col md:flex-row items-center gap-5">
+						<div>
+							<label htmlFor="search">Search: </label>
+							<input
+								type="search"
+								id="search"
+								value={searchInput}
+								onChange={(e) => setSearchInput(e.target.value)}
+								className="p-3 focus:outline-none"
+							/>
+						</div>
 						<Button onClick={clearSearchInput} variant="contained">
 							<span className="text-lg font-bold">Clear</span>
 						</Button>

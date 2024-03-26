@@ -86,7 +86,7 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 	};
 
 	return (
-		<li className="ListItem flex gap-10">
+		<li className="flex gap-10">
 			<label htmlFor={name} className="flex items-center gap-2">
 				<Checkbox
 					size="3"
@@ -105,11 +105,11 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 			</label>
 			<Button
 				onClick={handleDelete}
-				className="flex gap-3 items-center"
+				className="flex gap-2 md:gap-3 items-center"
 				variant="contained"
 			>
-				<FaTrashAlt size={13} />
-				<span className="text-lg font-bold">Delete item</span>
+				<FaTrashAlt className="h-5 w-5 md:h-7 md:w-7" />
+				<span className="md:text-lg font-bold">Delete item</span>
 			</Button>
 		</li>
 	);
