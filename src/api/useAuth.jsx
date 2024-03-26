@@ -13,7 +13,6 @@ export const SignInButton = () => (
 		type="button"
 		onClick={() => {
 			signInWithRedirect(auth, new GoogleAuthProvider());
-			localStorage.setItem('isAuthenticated', true);
 		}}
 	>
 		Sign In
@@ -28,7 +27,7 @@ export const SignOutButton = () => (
 		type="button"
 		onClick={() => {
 			auth.signOut();
-			localStorage.removeItem('isAuthenticated');
+			localStorage.clear();
 		}}
 	>
 		Sign Out
