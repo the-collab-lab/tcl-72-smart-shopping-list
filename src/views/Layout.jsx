@@ -33,6 +33,9 @@ export function Layout() {
 					)}
 				</header>
 				<main className="Layout-main">
+					<h1 className="text-center">
+						{localStorage.getItem('list') || 'No list selected'}
+					</h1>
 					<Outlet />
 				</main>
 				<nav className="Nav">

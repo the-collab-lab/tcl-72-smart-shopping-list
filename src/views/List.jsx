@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getDaysBetweenDates } from '../utils';
 import { comparePurchaseUrgency } from '../api/firebase';
 import { ListItem } from '../components/ListItem';
+import Button from '@mui/material/Button';
 
 export function List({ data, listPath }) {
 	const [searchInput, setSearchInput] = useState('');
@@ -55,7 +56,7 @@ export function List({ data, listPath }) {
 	};
 
 	return (
-		<>
+		<div className="mt-10 flex justify-center">
 			{data.length < 1 ? (
 				<div className="welcome-prompt">
 					<h2>Welcome to Your List!</h2>
@@ -68,33 +69,35 @@ export function List({ data, listPath }) {
 					</button>
 				</div>
 			) : (
-				<>
-					<p>
-						Hello from the <code>/list</code> page!
-					</p>
-					<form>
-						<label htmlFor="search">Search: </label>
-						<input
-							type="search"
-							id="search"
-							value={searchInput}
-							onChange={(e) => setSearchInput(e.target.value)}
-						/>
-						<button type="button" onClick={clearSearchInput}>
-							X
-						</button>
+				<div>
+					<form className="flex flex-col md:flex-row items-center gap-5">
+						<div>
+							<label htmlFor="search">Search: </label>
+							<input
+								type="search"
+								id="search"
+								value={searchInput}
+								onChange={(e) => setSearchInput(e.target.value)}
+								className="p-3 focus:outline-none"
+							/>
+						</div>
+						<Button onClick={clearSearchInput} variant="contained">
+							<span className="text-lg font-bold">Clear</span>
+						</Button>
 					</form>
-					{items.map((item) => (
-						<ListItem
-							key={item.id}
-							id={item.id}
-							listPath={listPath}
-							itemData={item}
-							timeNow={timeNow}
-						/>
-					))}
-				</>
+					<div className="mt-20 flex flex-col gap-5">
+						{items.map((item) => (
+							<ListItem
+								key={item.id}
+								id={item.id}
+								listPath={listPath}
+								itemData={item}
+								timeNow={timeNow}
+							/>
+						))}
+					</div>
+				</div>
 			)}
-		</>
+		</div>
 	);
 }
