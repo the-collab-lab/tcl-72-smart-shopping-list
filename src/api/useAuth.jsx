@@ -28,6 +28,7 @@ export const SignOutButton = () => (
 		onClick={() => {
 			auth.signOut();
 			localStorage.clear();
+			window.location.reload();
 		}}
 	>
 		Sign Out
