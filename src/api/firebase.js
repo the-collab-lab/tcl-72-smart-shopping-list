@@ -224,6 +224,16 @@ export async function deleteItem(listPath, itemId) {
 	const docRef = doc(db, listPath, 'items', itemId);
 	await deleteDoc(docRef);
 }
+// delete collection path
+// export async function deleteCollectionPath(db, listName, collectionId) {
+// 	const docRef = doc(db, listName, collectionId)
+// 	try {
+// 		await deleteDoc(docRef);
+// 		console.log(docRef)
+// 	} catch (err) {
+// 		console.error(err);
+// 	}
+// }
 
 export async function comparePurchaseUrgency(dataset) {
 	dataset.sort((a, b) => {

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function Home({ data, setListPath, userId, userEmail }) {
 	const [name, setName] = useState('');
+	const [selectedList, setSelectedList] = useState(null); // State to track the selected list
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
@@ -31,34 +32,42 @@ export function Home({ data, setListPath, userId, userEmail }) {
 	const handleChange = (e) => {
 		setName(e.target.value);
 	};
+	// to create a highlighted list
+	const handleListClick = (path) => {
+		setListPath(path);
+		setSelectedList(path); // Update selected list
+	};
 
 	return (
-		<div className="Home">
-			<p>
-				Hello from the home (<code>/</code>) page!
-			</p>
-
+		<div className="home">
 			<form id="list" onSubmit={handleSubmit}>
-				<label htmlFor="listName">Name of shopping list: </label>
+				<label htmlFor="listName" className="pt-8 font-bold">
+					Kindly generate a shopping Collection
+				</label>
 				<br />
 				<input
 					type="text"
 					id="listName"
 					value={name}
 					onChange={handleChange}
+					className="input"
+					placeholder="Type Here..."
 					required
 				/>
 				<br />
-				<button type="submit">Create list</button>
+				<div className="btn">
+					<button type="submit">Register Collection List </button>
+				</div>
 			</form>
-
 			<ul>
 				{data?.map((item) => (
 					<SingleList
 						key={item.path}
 						name={item.name}
 						path={item.path}
-						setListPath={setListPath}
+						// setListPath={setListPath}
+						setListPath={handleListClick}
+						selected={selectedList === item.path} // Pass whether the list is selected
 					/>
 				))}
 			</ul>
