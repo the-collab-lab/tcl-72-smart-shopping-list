@@ -1,24 +1,29 @@
 import './SingleList.css';
 import { MdOutlineDeleteForever } from 'react-icons/md';
 
-export function SingleList({ name, path, setListPath, deleteItem, itemId }) {
+export function SingleList({
+	name,
+	path,
+	setListPath,
+	deleteCollectionPath,
+	selected,
+}) {
 	function handleClick() {
 		setListPath(path);
 	}
-	function handleDelete() {
-		// Check if itemId is defined before calling deleteItem
-		if (itemId) {
-			deleteItem(name, itemId);
-		}
-	}
+	// function handleDelete() {
+	// 	deleteCollectionPath(path);
+	// }
 
 	return (
-		<div className="flex items-center justify-between">
+		<div
+			className={`flex items-center justify-between ${selected ? 'selected' : ''}`}
+		>
 			<li className="SingleList">
 				<button onClick={handleClick}>{name}</button>
 			</li>
 			<hr />
-			<MdOutlineDeleteForever className="text-red-700" onClick={handleDelete} />
+			<MdOutlineDeleteForever className="text-red-700" />
 		</div>
 	);
 }

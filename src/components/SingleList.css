@@ -8,3 +8,7 @@
 .SingleList-label {
 	margin-left: 0.2em;
 }
+.selected {
+	background-color: #000000;
+	color: #e69500;
+}
