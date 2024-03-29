@@ -1,8 +1,8 @@
 import { SingleList } from '../components/SingleList';
 import './Home.css';
-import { createList } from '../api/firebase';
+import { createList, deleteList } from '../api/firebase';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function Home({ data, setListPath, userId, userEmail }) {
 	const [name, setName] = useState('');
@@ -35,13 +35,13 @@ export function Home({ data, setListPath, userId, userEmail }) {
 	// to create a highlighted list
 	const handleListClick = (path) => {
 		setListPath(path);
-		setSelectedList(path); // Update selected list
+		setSelectedList(path); // this update and highlight the list path
 	};
 
 	return (
 		<div className="home">
 			<form id="list" onSubmit={handleSubmit}>
-				<label htmlFor="listName" className="pt-8 font-bold">
+				<label htmlFor="listName" className="pt-8 font-bold text-center">
 					Kindly generate a shopping Collection
 				</label>
 				<br />
@@ -65,12 +65,20 @@ export function Home({ data, setListPath, userId, userEmail }) {
 						key={item.path}
 						name={item.name}
 						path={item.path}
-						// setListPath={setListPath}
 						setListPath={handleListClick}
-						selected={selectedList === item.path} // Pass whether the list is selected
+						deleteList={deleteList} //  the deleteList function is being passed as a prop
+						selected={selectedList === item.path} // Checks if the list is selected
+						className="SingleList"
 					/>
 				))}
 			</ul>
+			<h2 className="hr-lines">Or</h2>
+
+			<div className="flex justify-center flex-center m-6 exit-btn">
+				<Link to="/list">
+					<button className="btn1">Join Existing List</button>
+				</Link>
+			</div>
 		</div>
 	);
 }

@@ -5,15 +5,22 @@ export function SingleList({
 	name,
 	path,
 	setListPath,
-	deleteCollectionPath,
+	deleteList,
+	email,
 	selected,
 }) {
-	function handleClick() {
+	// Function to handle selecting a list
+	const handleClick = () => {
 		setListPath(path);
-	}
-	// function handleDelete() {
-	// 	deleteCollectionPath(path);
-	// }
+	};
+
+	// Function to handle deleting a list
+	const handleDelete = async () => {
+		const listPath = '/' + path;
+		await deleteList(listPath, email);
+		localStorage.setItem('tcl-shopping-list-path', '');
+		window.location.reload();
+	};
 
 	return (
 		<div
@@ -23,7 +30,7 @@ export function SingleList({
 				<button onClick={handleClick}>{name}</button>
 			</li>
 			<hr />
-			<MdOutlineDeleteForever className="text-red-700" />
+			<MdOutlineDeleteForever className="text-red-700" onClick={handleDelete} />
 		</div>
 	);
 }

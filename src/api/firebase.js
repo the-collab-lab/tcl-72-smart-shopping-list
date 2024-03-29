@@ -8,6 +8,7 @@ import {
 	updateDoc,
 	addDoc,
 	increment,
+	arrayRemove,
 	deleteDoc,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
@@ -225,15 +226,17 @@ export async function deleteItem(listPath, itemId) {
 	await deleteDoc(docRef);
 }
 // delete collection path
-// export async function deleteCollectionPath(db, listName, collectionId) {
-// 	const docRef = doc(db, listName, collectionId)
-// 	try {
-// 		await deleteDoc(docRef);
-// 		console.log(docRef)
-// 	} catch (err) {
-// 		console.error(err);
-// 	}
-// }
+export async function deleteList(listPath, email) {
+	const docRef = doc(db, listPath);
+	console.log(docRef);
+	const userDocRef = doc(db, 'users', email);
+
+	await deleteDoc(docRef);
+
+	await updateDoc(userDocRef, {
+		sharedLists: arrayRemove(docRef),
+	});
+}
 
 export async function comparePurchaseUrgency(dataset) {
 	dataset.sort((a, b) => {

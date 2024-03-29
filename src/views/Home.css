@@ -21,3 +21,58 @@
 :hover .btn {
 	background-color: #38598b;
 }
+.exit-btn {
+	background-color: yellow;
+	color: black;
+	@apply p-3 rounded-xl shadow-md;
+}
+.hr-lines {
+	position: relative;
+	max-width: 500px;
+	margin: 20px auto;
+	text-align: center;
+}
+
+.hr-lines:before {
+	content: ' ';
+	height: 2px;
+	width: 240px;
+	background: red;
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 0;
+}
+
+.hr-lines:after {
+	content: ' ';
+	height: 2px;
+	width: 240px;
+	background: red;
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 0;
+}
+/* ..........................small screen................ */
+@media only screen and (max-width: 600px) {
+	.hr-lines {
+		font-size: 12px;
+	}
+
+	.hr-lines:before {
+		width: 120px;
+	}
+
+	.hr-lines:after {
+		width: 120px;
+	}
+	.btn,
+	.btn1,
+	.singleList {
+		font-size: 14px !important;
+	}
+	.input {
+		width: 100%;
+	}
+}
