@@ -42,6 +42,7 @@ export const SignOutButton = () => (
  */
 export const useAuth = () => {
 	const [user, setUser] = useState(null);
+	const [pending, setPending] = useState(true);
 
 	useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -49,8 +50,9 @@ export const useAuth = () => {
 			if (user) {
 				addUserToDatabase(user);
 			}
+			setPending(false);
 		});
 	}, []);
 
-	return { user };
+	return { user, pending };
 };
