@@ -1,8 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { AuthContext } from '../AuthContext';
+import { useAuth } from '../api';
 
 export default function ProtectedRoutes() {
-	const { user } = useContext(AuthContext);
+	const { user, pending } = useAuth();
+	if (pending) {
+		return <p>Loading...Please wait....</p>;
+	}
 	return user ? <Outlet /> : <Navigate to="/" />;
 }
