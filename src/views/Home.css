@@ -24,7 +24,7 @@
 .exit-btn {
 	background-color: yellow;
 	color: black;
-	@apply p-3 rounded-xl shadow-md;
+	@apply p-3 rounded-xl shadow-md font-bold;
 }
 .hr-lines {
 	position: relative;
@@ -36,7 +36,7 @@
 .hr-lines:before {
 	content: ' ';
 	height: 2px;
-	width: 240px;
+	width: 200px;
 	background: red;
 	display: block;
 	position: absolute;
@@ -47,7 +47,7 @@
 .hr-lines:after {
 	content: ' ';
 	height: 2px;
-	width: 240px;
+	width: 200px;
 	background: red;
 	display: block;
 	position: absolute;
@@ -61,11 +61,11 @@
 	}
 
 	.hr-lines:before {
-		width: 120px;
+		width: 100px;
 	}
 
 	.hr-lines:after {
-		width: 120px;
+		width: 100px;
 	}
 	.btn,
 	.btn1,

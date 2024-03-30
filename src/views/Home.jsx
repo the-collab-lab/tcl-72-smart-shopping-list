@@ -64,19 +64,19 @@ export function Home({ data, setListPath, userId, userEmail }) {
 					<SingleList
 						key={item.path}
 						name={item.name}
+						email={userEmail}
 						path={item.path}
 						setListPath={handleListClick}
-						deleteList={deleteList} //  the deleteList function is being passed as a prop
 						selected={selectedList === item.path} // Checks if the list is selected
 						className="SingleList"
 					/>
 				))}
 			</ul>
-			<h2 className="hr-lines">Or</h2>
+			<h2 className="hr-lines">Tired🥱?</h2>
 
 			<div className="flex justify-center flex-center m-6 exit-btn">
-				<Link to="/list">
-					<button className="btn1">Join Existing List</button>
+				<Link to="/manage-list">
+					<button className="btn1"> Create a List Right Away!</button>
 				</Link>
 			</div>
 		</div>

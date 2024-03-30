@@ -228,7 +228,7 @@ export async function deleteItem(listPath, itemId) {
 // delete collection path
 export async function deleteList(listPath, email) {
 	const docRef = doc(db, listPath);
-	console.log(docRef);
+
 	const userDocRef = doc(db, 'users', email);
 
 	await deleteDoc(docRef);

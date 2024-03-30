@@ -1,14 +1,8 @@
 import './SingleList.css';
 import { MdOutlineDeleteForever } from 'react-icons/md';
+import { deleteList } from '../api';
 
-export function SingleList({
-	name,
-	path,
-	setListPath,
-	deleteList,
-	email,
-	selected,
-}) {
+export function SingleList({ name, path, setListPath, email, selected }) {
 	// Function to handle selecting a list
 	const handleClick = () => {
 		setListPath(path);
