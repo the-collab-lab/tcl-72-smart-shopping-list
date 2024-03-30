@@ -52,6 +52,7 @@ export function App() {
 							<Home
 								data={lists}
 								setListPath={setListPath}
+								listPath={listPath}
 								userId={userId}
 								userEmail={userEmail}
 							/>

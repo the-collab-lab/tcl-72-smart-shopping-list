@@ -1,8 +1,9 @@
+import React from 'react';
 import './SingleList.css';
 import { MdOutlineDeleteForever } from 'react-icons/md';
 import { deleteList } from '../api';
 
-export function SingleList({ name, path, setListPath, email, selected }) {
+export function SingleList({ name, path, setListPath, listPath, email }) {
 	// Function to handle selecting a list
 	const handleClick = () => {
 		setListPath(path);
@@ -18,7 +19,7 @@ export function SingleList({ name, path, setListPath, email, selected }) {
 
 	return (
 		<div
-			className={`flex items-center justify-between ${selected ? 'selected' : ''}`}
+			className={`flex items-center justify-between ${path === listPath ? 'selected' : ''}`}
 		>
 			<li className="SingleList">
 				<button onClick={handleClick}>{name}</button>
