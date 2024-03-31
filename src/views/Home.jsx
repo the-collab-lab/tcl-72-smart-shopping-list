@@ -1,31 +1,25 @@
+import React, { useState } from 'react';
 import { SingleList } from '../components/SingleList';
 import './Home.css';
 import { createList } from '../api/firebase';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
 
-export function Home({ data, setListPath, userId, userEmail }) {
+export function Home({ data, listPath, setListPath, userId, userEmail }) {
 	const [name, setName] = useState('');
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
-		event.preventDefault(); // Prevent the default form submission behavior.
+		event.preventDefault();
 
 		try {
 			const newList = await createList(userId, userEmail, name);
-			setListPath(newList); // creates a new list and automatically creates the userId
-			// that tracks the purchased item and also saves it to local storage
-
-			setName(''); //refreshes the form after submission place takes it back to the default state
-
-			alert('The item has been added.'); //alert message
-
-			navigate('/list'); // navigate to list page
+			setListPath(newList);
+			setName('');
+			alert('The item has been added.');
+			navigate('/list');
 		} catch (err) {
 			console.error(err);
-
-			alert('item not created'); //alert message if there is an error with creating the item
+			alert('Item not created');
 		}
 	};
 
@@ -34,34 +28,35 @@ export function Home({ data, setListPath, userId, userEmail }) {
 	};
 
 	return (
-		<div className="Home flex flex-col items-center">
+		<div className="home">
 			<form id="list" onSubmit={handleSubmit}>
-				<div className="flex">
-					<label htmlFor="listName">Name of shopping list: </label>
-					<br />
-					<input
-						type="text"
-						id="listName"
-						value={name}
-						onChange={handleChange}
-						required
-					/>
-				</div>
+				<label htmlFor="listName" className="pt-8 font-bold text-center">
+					Kindly generate a shopping List
+				</label>
 				<br />
-				<div className="flex items-center justify-center">
-					<Button type="submit" variant="contained">
-						{' '}
-						<span className="text-lg font-bold">Create list</span>
-					</Button>
+				<input
+					type="text"
+					id="listName"
+					value={name}
+					onChange={handleChange}
+					className="input"
+					placeholder="Type Here..."
+					required
+				/>
+				<br />
+				<div className="btn">
+					<button type="submit">Register List</button>
 				</div>
 			</form>
-			<ul className="flex flex-col justify-start w-full pt-9">
+			<ul>
 				{data?.map((item) => (
 					<SingleList
 						key={item.path}
 						name={item.name}
+						email={userEmail}
 						path={item.path}
 						setListPath={setListPath}
+						listPath={listPath} // Pass listPath to SingleList
 					/>
 				))}
 			</ul>

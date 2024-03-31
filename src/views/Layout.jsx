@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-
 import './Layout.css';
 import { FaShoppingBag, FaUser, FaUserMinus } from 'react-icons/fa';
 import { auth } from '../api/config.js';
@@ -21,6 +20,7 @@ export function Layout() {
 		<>
 			<div className="Layout">
 				<header className="Layout-header">
+
 					<div className="login-user">
 						{!user ? (
 							<div className="flex justify-end gap-5 items-center">
@@ -41,6 +41,7 @@ export function Layout() {
 						<FaShoppingBag />
 						<h1>Smart Shopping List</h1>
 					</div>
+
 				</header>
 				<nav className="Nav">
 					<div className="Nav-container">

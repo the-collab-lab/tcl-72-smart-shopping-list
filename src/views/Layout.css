@@ -11,6 +11,10 @@
 	display: flex;
 	flex-direction: column;
 	height: 100dvh;
+	background-image: url('/img/Home-cover2.jpg') !important;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
 }
 
 .Layout > * {
@@ -19,7 +23,9 @@
 .Layout-header {
 	background-color: var(--color-bg);
 	text-align: center;
-	background-color: #e7eaf6;
+
+	@apply flex flex-col justify-center items-center;
+
 }
 
 .Layout-header > .login-user {
@@ -84,4 +90,9 @@
 	color: #e69500;
 	text-decoration-thickness: 0.22em;
 	text-underline-offset: 0.1em;
+}
+.btn1 {
+	background-color: #a2a8d3;
+	width: 10%;
+	@apply p-1 lg:p-3 rounded-xl shadow-md font-bold text-black ml-4;
 }
