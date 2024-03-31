@@ -76,12 +76,12 @@
 }
 
 .Nav-link:hover {
-	color: #a2a8d3;
+	color: #e69500;
 	transition: all 0.3s ease-in-out;
 }
 
 .Nav-link.active {
-	color: #a2a8d3;
+	color: #e69500;
 	text-decoration-thickness: 0.22em;
 	text-underline-offset: 0.1em;
 }
