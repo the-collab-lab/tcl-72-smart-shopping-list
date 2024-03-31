@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-
 import './Layout.css';
 import { auth } from '../api/config.js';
 import { SignInButton, SignOutButton, useAuth } from '../api/useAuth.jsx';
@@ -22,11 +21,11 @@ export function Layout() {
 				<header className="Layout-header">
 					<h1>Welcome to a Smart shopping list</h1>
 					{!user ? (
-						<div>
+						<div className="btn1">
 							<SignInButton />
 						</div>
 					) : (
-						<div>
+						<div className="btn1">
 							<span>{user?.displayName}</span>
 							<SignOutButton />
 						</div>

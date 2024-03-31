@@ -21,12 +21,8 @@
 :hover .btn {
 	background-color: #38598b;
 }
-.exit-btn {
-	background-color: yellow;
-	color: black;
-	@apply p-3 rounded-xl shadow-md font-bold;
-}
-.hr-lines {
+
+/* .hr-lines {
 	position: relative;
 	max-width: 500px;
 	margin: 20px auto;
@@ -53,10 +49,10 @@
 	position: absolute;
 	top: 50%;
 	right: 0;
-}
+} */
 /* ..........................small screen................ */
 @media only screen and (max-width: 600px) {
-	.hr-lines {
+	/* .hr-lines {
 		font-size: 12px;
 	}
 
@@ -66,9 +62,8 @@
 
 	.hr-lines:after {
 		width: 100px;
-	}
+	} */
 	.btn,
-	.btn1,
 	.singleList {
 		font-size: 14px !important;
 	}

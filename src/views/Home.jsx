@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SingleList } from '../components/SingleList';
 import './Home.css';
 import { createList } from '../api/firebase';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function Home({ data, listPath, setListPath, userId, userEmail }) {
 	const [name, setName] = useState('');
@@ -60,13 +60,13 @@ export function Home({ data, listPath, setListPath, userId, userEmail }) {
 					/>
 				))}
 			</ul>
-			<h2 className="hr-lines">Tried🥱?</h2>
+			{/* <h2 className="hr-lines">Tried🥱?</h2>
 
 			<div className="flex justify-center flex-center m-6 exit-btn">
 				<Link to="/manage-list">
 					<button className="btn1"> Create a List Right Away!</button>
 				</Link>
-			</div>
+			</div> */}
 		</div>
 	);
 }

@@ -26,6 +26,7 @@
 	padding-bottom: 0.5rem;
 	padding-top: max(env(safe-area-inset-top), 1rem);
 	text-align: center;
+	@apply flex flex-col justify-center items-center;
 }
 
 .Layout-header > h1 {
@@ -74,4 +75,9 @@
 .Nav-link.active {
 	text-decoration-thickness: 0.22em;
 	text-underline-offset: 0.1em;
+}
+.btn1 {
+	background-color: #a2a8d3;
+	width: 10%;
+	@apply p-1 lg:p-3 rounded-xl shadow-md font-bold text-black ml-4;
 }
