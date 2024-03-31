@@ -3,6 +3,7 @@ import './Home.css';
 import { createList } from '../api/firebase';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 export function Home({ data, setListPath, userId, userEmail }) {
 	const [name, setName] = useState('');
@@ -33,26 +34,28 @@ export function Home({ data, setListPath, userId, userEmail }) {
 	};
 
 	return (
-		<div className="Home">
-			<p>
-				Hello from the home (<code>/</code>) page!
-			</p>
-
+		<div className="Home flex flex-col items-center">
 			<form id="list" onSubmit={handleSubmit}>
-				<label htmlFor="listName">Name of shopping list: </label>
+				<div className="flex">
+					<label htmlFor="listName">Name of shopping list: </label>
+					<br />
+					<input
+						type="text"
+						id="listName"
+						value={name}
+						onChange={handleChange}
+						required
+					/>
+				</div>
 				<br />
-				<input
-					type="text"
-					id="listName"
-					value={name}
-					onChange={handleChange}
-					required
-				/>
-				<br />
-				<button type="submit">Create list</button>
+				<div className="flex items-center justify-center">
+					<Button type="submit" variant="contained">
+						{' '}
+						<span className="text-lg font-bold">Create list</span>
+					</Button>
+				</div>
 			</form>
-
-			<ul>
+			<ul className="flex flex-col justify-start w-full pt-9">
 				{data?.map((item) => (
 					<SingleList
 						key={item.path}

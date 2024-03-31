@@ -56,7 +56,7 @@ export function Layout() {
 					</div>
 				</nav>
 				<main className="Layout-main">
-					<h1 className="my-3 text-center font-extrabold text-4xl">
+					<h1 className="my-3 text-center font-extrabold text-4xl pb-9 capitalize">
 						{localStorage.getItem('list') || 'No list selected'}
 					</h1>
 					<Outlet />
