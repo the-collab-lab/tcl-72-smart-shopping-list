@@ -33,7 +33,7 @@ export function Layout() {
 					)}
 				</header>
 				<main className="Layout-main">
-					<h1 className="text-center">
+					<h1 className="my-3 text-center font-extrabold text-4xl">
 						{localStorage.getItem('list') || 'No list selected'}
 					</h1>
 					<Outlet />
