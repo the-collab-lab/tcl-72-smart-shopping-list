@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { addItem, shareList } from '../api/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './managelist.css';
+import Button from '@mui/material/Button';
+import { CiShare1 } from 'react-icons/ci';
 
 export function ManageList({ listPath, userId, existingItems }) {
 	const [itemName, setItemName] = useState('');
@@ -76,13 +79,11 @@ export function ManageList({ listPath, userId, existingItems }) {
 	};
 
 	return (
-		<>
-			<p>
-				Hello from the <code>/manage-list</code> page!
-			</p>
-			<form onSubmit={handleItemSubmit}>
+		<div className="manage-list flex items-center">
+			<form className="add-item h-96 w-auto" onSubmit={handleItemSubmit}>
+				<h1 className="text-4xl my-5">Add List Item</h1>
 				<div>
-					<label htmlFor="itemName">Name of item: </label>
+					<label htmlFor="itemName">Name of item: </label> <br />
 					<input
 						value={itemName}
 						onChange={(e) => setItemName(e.target.value)}
@@ -93,7 +94,7 @@ export function ManageList({ listPath, userId, existingItems }) {
 				</div>
 				<div>
 					<label htmlFor="daysUntilNextPurchase">
-						Days Until Next Purchase:{' '}
+						When will you re-purchase?{' '}
 					</label>
 					<select
 						id="daysUntilNextPurchase"
@@ -105,10 +106,12 @@ export function ManageList({ listPath, userId, existingItems }) {
 						<option value={30}>Not soon</option>
 					</select>
 				</div>
-				<button type="submit">Submit Item</button>
+				<Button className="submit-btn" type="submit" variant="contained">
+					Add Item
+				</Button>
 			</form>
-			<form onSubmit={handleEmailSubmit}>
-				<h1>Share List</h1>
+			<form className="share-list h-96 w-auto" onSubmit={handleEmailSubmit}>
+				<h1 className="text-4xl my-5">Share List</h1>
 				<div>
 					<label htmlFor="email">Email: </label>
 					<input
@@ -120,9 +123,11 @@ export function ManageList({ listPath, userId, existingItems }) {
 						required
 					/>
 				</div>
-				<button type="submit">Submit Item</button>
+				<Button className="submit-btn" type="submit" variant="contained">
+					Share List
+				</Button>
 			</form>
 			<ToastContainer style={{ toastCSS }} />
-		</>
+		</div>
 	);
 }
