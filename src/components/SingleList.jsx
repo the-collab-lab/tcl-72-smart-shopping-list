@@ -2,6 +2,8 @@ import React from 'react';
 import './SingleList.css';
 import { MdOutlineDeleteForever } from 'react-icons/md';
 import { deleteList } from '../api';
+import { Button } from '@mui/material';
+
 
 export function SingleList({ name, path, setListPath, listPath, email }) {
 	// Function to handle selecting a list
@@ -30,5 +32,6 @@ export function SingleList({ name, path, setListPath, listPath, email }) {
 				onClick={handleDelete}
 			/>
 		</div>
-	);
+	}
+)
 }

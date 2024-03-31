@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import './Layout.css';
+import { FaShoppingBag, FaUser, FaUserMinus } from 'react-icons/fa';
 import { auth } from '../api/config.js';
 import { SignInButton, SignOutButton, useAuth } from '../api/useAuth.jsx';
 import { NavLink } from 'react-router-dom';
@@ -19,21 +20,29 @@ export function Layout() {
 		<>
 			<div className="Layout">
 				<header className="Layout-header">
-					<h1>Welcome to a Smart shopping list</h1>
-					{!user ? (
-						<div className="btn1">
-							<SignInButton />
-						</div>
-					) : (
-						<div className="btn1">
-							<span>{user?.displayName}</span>
-							<SignOutButton />
-						</div>
-					)}
+
+					<div className="login-user">
+						{!user ? (
+							<div className="flex justify-end gap-5 items-center">
+								<FaUser />
+								<SignInButton />
+							</div>
+						) : (
+							<div className="flex justify-between">
+								<span>Welcome {user?.displayName}!</span>
+								<span className="flex justify-end gap-5 items-center">
+									<FaUserMinus />
+									<SignOutButton />
+								</span>
+							</div>
+						)}
+					</div>
+					<div className="Layout-title">
+						<FaShoppingBag />
+						<h1>Smart Shopping List</h1>
+					</div>
+
 				</header>
-				<main className="Layout-main">
-					<Outlet />
-				</main>
 				<nav className="Nav">
 					<div className="Nav-container">
 						<NavLink to="/" className="Nav-link">
@@ -47,6 +56,12 @@ export function Layout() {
 						</NavLink>
 					</div>
 				</nav>
+				<main className="Layout-main">
+					<h1 className="my-3 text-center font-extrabold text-4xl pb-9 capitalize">
+						{localStorage.getItem('list') || 'No list selected'}
+					</h1>
+					<Outlet />
+				</main>
 			</div>
 		</>
 	);
