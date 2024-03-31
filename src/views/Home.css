@@ -16,53 +16,14 @@
 }
 .btn {
 	background-color: #113767;
-	@apply text-white p-3 rounded-xl shadow-md mb-8;
+	@apply text-white p-3 rounded-xl shadow-md mb-8 cursor-pointer;
 }
 :hover .btn {
 	background-color: #38598b;
 }
 
-/* .hr-lines {
-	position: relative;
-	max-width: 500px;
-	margin: 20px auto;
-	text-align: center;
-}
-
-.hr-lines:before {
-	content: ' ';
-	height: 2px;
-	width: 200px;
-	background: red;
-	display: block;
-	position: absolute;
-	top: 50%;
-	left: 0;
-}
-
-.hr-lines:after {
-	content: ' ';
-	height: 2px;
-	width: 200px;
-	background: red;
-	display: block;
-	position: absolute;
-	top: 50%;
-	right: 0;
-} */
 /* ..........................small screen................ */
 @media only screen and (max-width: 600px) {
-	/* .hr-lines {
-		font-size: 12px;
-	}
-
-	.hr-lines:before {
-		width: 100px;
-	}
-
-	.hr-lines:after {
-		width: 100px;
-	} */
 	.btn,
 	.singleList {
 		font-size: 14px !important;

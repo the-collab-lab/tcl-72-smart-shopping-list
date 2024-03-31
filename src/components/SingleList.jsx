@@ -25,7 +25,10 @@ export function SingleList({ name, path, setListPath, listPath, email }) {
 				<button onClick={handleClick}>{name}</button>
 			</li>
 			<hr />
-			<MdOutlineDeleteForever className="text-red-700" onClick={handleDelete} />
+			<MdOutlineDeleteForever
+				className="text-red-700 cursor-pointer"
+				onClick={handleDelete}
+			/>
 		</div>
 	);
 }

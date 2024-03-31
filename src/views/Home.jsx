@@ -60,13 +60,6 @@ export function Home({ data, listPath, setListPath, userId, userEmail }) {
 					/>
 				))}
 			</ul>
-			{/* <h2 className="hr-lines">Tried🥱?</h2>
-
-			<div className="flex justify-center flex-center m-6 exit-btn">
-				<Link to="/manage-list">
-					<button className="btn1"> Create a List Right Away!</button>
-				</Link>
-			</div> */}
 		</div>
 	);
 }
