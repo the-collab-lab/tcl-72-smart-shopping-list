@@ -79,11 +79,11 @@ export function ManageList({ listPath, userId, existingItems }) {
 	};
 
 	return (
-		<div className="manage-list flex items-center">
+		<div className="manage-list flex items-center gap-10">
 			<form className="add-item h-96 w-auto" onSubmit={handleItemSubmit}>
 				<h1 className="text-4xl my-5">Add List Item</h1>
-				<div>
-					<label htmlFor="itemName">Name of item: </label> <br />
+				<div className="flex gap-2">
+					<label htmlFor="itemName">Name of item:</label> <br />
 					<input
 						value={itemName}
 						onChange={(e) => setItemName(e.target.value)}
