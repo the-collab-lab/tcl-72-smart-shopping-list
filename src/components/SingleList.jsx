@@ -2,12 +2,12 @@ import React from 'react';
 import './SingleList.css';
 import { MdOutlineDeleteForever } from 'react-icons/md';
 import { deleteList } from '../api';
-import { Button } from '@mui/material';
 
 export function SingleList({ name, path, setListPath, listPath, email }) {
 	// Function to handle selecting a list
 	const handleClick = () => {
 		setListPath(path);
+		localStorage.setItem('list', name);
 	};
 
 	// Function to handle deleting a list
