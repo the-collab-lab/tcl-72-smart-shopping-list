@@ -19,7 +19,7 @@ export function Layout() {
 		<>
 			<div className="Layout">
 				<header className="Layout-header">
-					<div className="login-user">
+					<div className="login-user text-black/70">
 						{!user ? (
 							<div className="flex justify-end gap-5 items-center">
 								<FaUser />
@@ -54,7 +54,7 @@ export function Layout() {
 					</div>
 				</nav>
 				<main className="Layout-main">
-					<h1 className="my-3 text-center font-extrabold text-4xl pb-9 capitalize text-black dark:text-white">
+					<h1 className="text-black my-3 text-center font-extrabold text-4xl pb-9 capitalize">
 						{localStorage.getItem('list') || 'No list selected'}
 					</h1>
 					<Outlet />

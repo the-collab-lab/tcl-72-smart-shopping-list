@@ -86,7 +86,7 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 	};
 
 	return (
-		<li className="flex gap-10">
+		<li className="flex justify-between gap-10">
 			<label htmlFor={name} className="flex items-center gap-2">
 				<Checkbox
 					size="3"
@@ -94,7 +94,7 @@ export function ListItem({ id, listPath, itemData, timeNow }) {
 					onChange={setItemPurchased}
 					checked={itemChecked}
 				/>
-				<p className={`${itemChecked ? 'line-through text-white/50' : ''}`}>
+				<p className={`${itemChecked ? 'line-through text-black/70' : ''}`}>
 					{name}
 				</p>
 				{itemChecked ? (

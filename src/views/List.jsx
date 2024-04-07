@@ -69,7 +69,7 @@ export function List({ data, listPath }) {
 					</button>
 				</div>
 			) : (
-				<div>
+				<div className="home">
 					<form className="flex flex-col md:flex-row items-center gap-5">
 						<div>
 							<label htmlFor="search">Search: </label>
