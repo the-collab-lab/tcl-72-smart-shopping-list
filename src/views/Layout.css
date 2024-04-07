@@ -23,13 +23,14 @@
 .Layout-header {
 	background-color: var(--color-bg);
 	text-align: center;
+	background-color: #e7eaf6;
 
 	@apply flex flex-col justify-center items-center;
-
 }
 
 .Layout-header > .login-user {
 	padding: 15px 30px;
+	width: 100%;
 }
 
 .Layout-header > .Layout-title {

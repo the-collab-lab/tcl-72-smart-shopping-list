@@ -26,9 +26,9 @@ export function Layout() {
 								<SignInButton />
 							</div>
 						) : (
-							<div className="flex justify-between">
+							<div className="flex justify-between items-center">
 								<span>Welcome {user?.displayName}!</span>
-								<span className="flex justify-end gap-5 items-center">
+								<span className="flex gap-5 items-center">
 									<FaUserMinus />
 									<SignOutButton />
 								</span>
