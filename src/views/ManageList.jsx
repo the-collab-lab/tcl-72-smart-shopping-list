@@ -79,7 +79,7 @@ export function ManageList({ listPath, userId, existingItems }) {
 	};
 
 	return (
-		<div className="manage-list flex items-center gap-10">
+		<div className="manage-list flex items-center gap-10 text-black">
 			<form className="add-item h-96 w-auto" onSubmit={handleItemSubmit}>
 				<h1 className="text-4xl my-5">Add List Item</h1>
 				<div className="flex gap-2">
