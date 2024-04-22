@@ -100,6 +100,7 @@ export function ManageList({ listPath, userId, existingItems }) {
 						id="daysUntilNextPurchase"
 						value={daysUntilNextPurchase}
 						onChange={(e) => setDaysUntilNextPurchase(e.target.value)}
+						className="bg-blue-100 text-black"
 					>
 						<option value={7}>Soon</option>
 						<option value={14}>Kind of soon</option>
