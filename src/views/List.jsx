@@ -59,12 +59,16 @@ export function List({ data, listPath }) {
 		<div className="mt-10 flex justify-center">
 			{data.length < 1 ? (
 				<div className="welcome-prompt">
-					<h2>Welcome to Your List!</h2>
-					<p>
+					<h2 className="text-black">Welcome to Your List!</h2>
+					<p className="text-black">
 						Ready to start your list? Click on the button below to add your very
 						first item.
 					</p>
-					<button onClick={() => navigate('/manage-list')} type="button">
+					<button
+						onClick={() => navigate('/manage-list')}
+						type="button"
+						className="bg-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4"
+					>
 						Add Item
 					</button>
 				</div>
